@@ -9,9 +9,9 @@ const ProductCard = (props: Props) => {
     <a href="#" className={styles.productCard}>
       <Image src={`/${props.path}`} alt={props.name} width={400} height={420} />
         <div className={styles.info}>
-            <div>{props.name}</div>
-            <div>{props.price.referencePrice} DH</div>
-            <div>{props.price.currentPrice} DH</div>
+            <div className={styles.name}>{props.name}</div>
+            <div className={styles.referencePrice}>{props.price.referencePrice} DH</div>
+            <div className={styles.currentPrice}>{props.price.currentPrice} DH</div>
         </div>
     </a>
   );
