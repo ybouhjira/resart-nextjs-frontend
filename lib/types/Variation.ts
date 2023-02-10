@@ -1,5 +1,5 @@
 interface Variation {
-    color: string
+  color: string;
 }
 
-export default Variation
+export default Variation;
