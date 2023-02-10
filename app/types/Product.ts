@@ -1,6 +1,7 @@
-import Variation from "@/lib/types/Variation";
+import Variation from "@/app/types/Variation";
 
 interface Product {
+  sku: string;
   name: string;
   price: {
     referencePrice: 10;

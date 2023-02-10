@@ -1,8 +1,12 @@
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import products from "@/app/data/products";
+import ProductCard from "@/app/components/ProductCard/ProductCard";
 
 export default function Home() {
-  return <div></div>;
+  return (
+    <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
+      {products.map((product) => (
+        <ProductCard key={product.sku} {...product} />
+      ))}
+    </div>
+  );
 }
