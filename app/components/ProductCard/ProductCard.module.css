@@ -1,6 +1,15 @@
-.product-card {
-  width: 300px;
-  height: 420px;
+.productCard {
+  width: 360px;
   border: 1px solid #aaa;
   margin: 24px;
+  box-shadow: 5px 5px 5px #000a;
+  display: block;
+}
+
+.productCard img {
+  width: 100%;
+}
+
+.info {
+  padding: 10px;
 }
