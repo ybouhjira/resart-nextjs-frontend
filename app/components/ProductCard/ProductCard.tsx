@@ -7,7 +7,9 @@ interface Props extends Product {}
 const ProductCard = (props: Props) => {
   return (
     <a href="#" className={styles.productCard}>
-      <Image src={`/${props.path}`} alt={props.name} width={400} height={420} />
+      <div style={{position: 'relative', height: '300px'}}>
+          <Image src={`/${props.path}`} alt={props.name} fill />
+      </div>
         <div className={styles.info}>
             <div className={styles.name}>{props.name}</div>
             <div className={styles.referencePrice}>{props.price.referencePrice} DH</div>
