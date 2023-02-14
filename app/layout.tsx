@@ -16,7 +16,7 @@ export default function RootLayout({
       */}
       <head />
       <body style={{padding: '0 25px'}}>
-      <h1>Resart</h1>
+      <h1 className="text-[60px] mb-10">Resart</h1>
       {children}
       </body>
     </html>
