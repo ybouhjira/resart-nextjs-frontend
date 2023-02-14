@@ -1,4 +1,4 @@
-import Product from "@/app/types/Product";
+import Product from "@/types/Product";
 
 const products: Product[] = [
   {
