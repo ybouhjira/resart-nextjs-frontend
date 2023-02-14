@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Lora } from '@next/font/google'
+import Link from "next/link";
 
 const loraFont = Lora({ subsets: ['latin'] })
 
@@ -16,7 +17,9 @@ export default function RootLayout({
       */}
       <head />
       <body style={{padding: '0 25px'}}>
-      <h1 className="text-[60px] mb-10">Resart</h1>
+      <Link href="/">
+          <h1 className="text-[60px] mb-10">Resart</h1>
+      </Link>
       {children}
       </body>
     </html>
