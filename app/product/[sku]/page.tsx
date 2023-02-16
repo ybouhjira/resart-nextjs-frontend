@@ -26,6 +26,9 @@ const ProductDetailsPage = ({
           <strong className="text-3xl text-red-500">{product.price.currentPrice}DH</strong>
           <strong className="text-3xl overline">{product.price.referencePrice}DH</strong>
       </div>
+
+
+        <button className="p-4 text-xl font-bold bg-green-600 rounded-md text-white">Order via whatsapp!</button>
     </div>
   );
 };
