@@ -1,0 +1,36 @@
+.productCard {
+    width: 274px;
+    border: 1px solid #aaa;
+    box-shadow: 1px 0px 7px 0px #000a;
+    color: #333
+}
+
+.name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.image {
+    height: 260px
+}
+
+.referencePrice {
+    display: inline-block;
+    text-decoration: line-through;
+}
+
+.currentPrice {
+    display: inline-block;
+    margin-left: 10px;
+    color: #d32f2f;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.productCard img {
+    width: 100%;
+}
+
+.info {
+    padding: 10px;
+}
