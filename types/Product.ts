@@ -9,6 +9,7 @@ interface Product {
   };
   variations: Variation[];
   path: string;
+  description: string;
 }
 
 export default Product;
