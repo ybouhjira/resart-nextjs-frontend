@@ -1,4 +1,3 @@
-import _ from "lodash/fp";
 import products from "@/app/data/products";
 import Product from "@/types/Product";
 
