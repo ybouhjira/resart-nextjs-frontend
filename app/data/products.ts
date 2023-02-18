@@ -16,7 +16,8 @@ const products: Product[] = [
     price: { referencePrice: 10, currentPrice: 8 },
     variations: [{ color: "red" }, { color: "blue" }, { color: "green" }],
     path: "photos/152348121_453381749147207_1840932833508423850_n.jpg",
-    description: "Bring a touch of nature to your outfit with this handmade thuya wood necklace in flower violet. The combination of blue and purple is reminiscent of wildflowers, making this necklace the perfect accessory for those who love to explore the outdoors. The natural wood adds a touch of warmth and earthiness, making this piece the perfect complement to any outfit. Wear it with a flowing dress or a simple white tee for a bohemian touch."
+    description:
+      "Bring a touch of nature to your outfit with this handmade thuya wood necklace in flower violet. The combination of blue and purple is reminiscent of wildflowers, making this necklace the perfect accessory for those who love to explore the outdoors. The natural wood adds a touch of warmth and earthiness, making this piece the perfect complement to any outfit. Wear it with a flowing dress or a simple white tee for a bohemian touch.",
   },
   {
     sku: "0000002",

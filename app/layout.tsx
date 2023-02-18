@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Lora } from "@next/font/google";
 import Link from "next/link";
+import Header from "@/app/components/Header/Header";
 
 const loraFont = Lora({ subsets: ["latin"] });
 
@@ -16,11 +17,11 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body style={{ padding: "0 25px" }}>
-        <Link href="/">
-          <h1 className="text-[60px] mb-10">Resart</h1>
-        </Link>
-        {children}
+      <body>
+        <Header />
+        <main className="px-10 py-10">
+            {children}
+        </main>
       </body>
     </html>
   );

@@ -15,20 +15,23 @@ const ProductDetailsPage = ({
     <div>
       <h2 className="text-3xl font-bold underline">{product.name}</h2>
       <div className="flex gap-x-10 gap-y-5">
-          <figure className="block w-[260px] h-[300px] relative shrink-0">
-              <Image src={`/${product.path}`} alt={product.name} fill />
-          </figure>
-          <main className="text-[24px]">
-              {product.description}
-          </main>
+        <figure className="block w-[260px] h-[300px] relative shrink-0">
+          <Image src={`/${product.path}`} alt={product.name} fill />
+        </figure>
+        <main className="text-[24px]">{product.description}</main>
       </div>
       <div className="flex gap-x-2.5">
-          <strong className="text-3xl text-red-500">{product.price.currentPrice}DH</strong>
-          <strong className="text-3xl overline">{product.price.referencePrice}DH</strong>
+        <strong className="text-3xl text-red-500">
+          {product.price.currentPrice}DH
+        </strong>
+        <strong className="text-3xl overline">
+          {product.price.referencePrice}DH
+        </strong>
       </div>
 
-
-        <button className="p-4 text-xl font-bold bg-green-600 rounded-md text-white">Order via whatsapp!</button>
+      <button className="p-4 text-xl font-bold bg-green-600 rounded-md text-white">
+        Order via whatsapp!
+      </button>
     </div>
   );
 };
