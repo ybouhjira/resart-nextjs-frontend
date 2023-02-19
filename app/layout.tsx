@@ -11,15 +11,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={loraFont.className}>
+    <html lang="en" className={`${loraFont.className} h-full`}>
       {/*
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className="flex flex-col h-full">
         <Header />
-        <main>{children}</main>
+        <main className="grow-[5]">{children}</main>
         <Footer />
       </body>
     </html>
