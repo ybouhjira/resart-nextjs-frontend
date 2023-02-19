@@ -1,7 +1,13 @@
-import Hero from "@/app/components/Hero/Hero";
+import MainBanner from "@/app/components/MainBanner/MainBanner";
+import AboutSection from "@/app/components/AboutSection/AboutSection";
+import TestimonialsSection from "@/app/components/TestimonialsSection/TestimonialsSection";
 
 export default function HomePage() {
-  return <div>
-    <Hero />
-  </div>;
+  return (
+    <div>
+      <MainBanner />
+      <AboutSection />
+      <TestimonialsSection />
+    </div>
+  );
 }
