@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Lora } from "@next/font/google";
-import Link from "next/link";
 import Header from "@/app/components/Header/Header";
+import { Footer } from "@/app/components/Footer/Footer";
 
 const loraFont = Lora({ subsets: ["latin"] });
 
@@ -19,7 +19,8 @@ export default function RootLayout({
       <head />
       <body>
         <Header />
-        <main className="py-10">{children}</main>
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
