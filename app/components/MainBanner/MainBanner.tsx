@@ -1,4 +1,4 @@
-import SlideShow from "@/app/components/MainBanner/SlideShow/SlideShow";
+import SlideShow from "@/app/components/MainBanner/SlideShow";
 
 export default function MainBanner() {
   return (
