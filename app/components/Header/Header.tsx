@@ -6,7 +6,7 @@ export default function Header() {
     <header className="bg-white px-10">
       <div className="border-solid border-b-2 border-black flex justify-between items-center">
         <Link href="/" className="relative w-[100px]">
-          <Logo className="w-full"/>
+          <Logo className="w-full" />
         </Link>
 
         <nav>
