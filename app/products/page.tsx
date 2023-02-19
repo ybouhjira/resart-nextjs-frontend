@@ -3,12 +3,10 @@ import ProductCard from "@/components/ProductCard/ProductCard";
 
 export default function Home() {
   return (
-    <div
-      style={{ display: "flex", width: "100%", flexWrap: "wrap", gap: "24px" }}
-    >
+    <main className="flex w-full flex-wrap gap-[24px] py-20 px-10">
       {products.map((product) => (
         <ProductCard key={product.sku} {...product} />
       ))}
-    </div>
+    </main>
   );
 }
