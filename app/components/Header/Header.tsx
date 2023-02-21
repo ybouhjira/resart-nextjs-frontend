@@ -7,7 +7,7 @@ export default function Header() {
   debugger;
   return (
     <header className="bg-white sm:px-5 lg:px-10">
-      <div className="border-black flex justify-between items-center">
+      <div className="flex justify-between items-center">
         <Link href="/" className="relative w-[100px]">
           <Logo className="w-full" />
         </Link>
