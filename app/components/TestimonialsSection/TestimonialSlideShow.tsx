@@ -10,8 +10,8 @@ export default function TestimonialSlideShow() {
     <Swiper slidesPerView={1} navigation={true} modules={[Navigation]}>
       {testimonials.map((testimonial) => (
         <SwiperSlide key={testimonial.id}>
-          <article className="m-auto flex gap-10 w-[fit-content]">
-            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px]">
+          <article className="m-auto flex flex-col md:flex-row gap-10 w-[fit-content]">
+            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px] m-auto">
               <Image
                 src={path.join("/", testimonial.photo)}
                 alt="Testimonial author photo"
@@ -19,7 +19,7 @@ export default function TestimonialSlideShow() {
                 fill
               />
             </figure>
-            <article className="w-[500px]">
+            <article className="max-w-[500px]">
               {testimonial.content}
               <figcaption>&#8212; {testimonial.name}</figcaption>
             </article>
