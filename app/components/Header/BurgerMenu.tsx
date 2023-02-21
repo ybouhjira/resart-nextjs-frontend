@@ -1,13 +1,13 @@
 "use client";
 
 import BurgerMenuIcon from "./burger-menu-svgrepo-com.svg";
-import { useState } from "react";
+import {useCallback, useState} from "react";
 import links from "./links";
 import Link from "next/link";
 
 export default function BurgerMenu() {
   const [menuVisible, setMenuVisible] = useState(false);
-  const toggleMenu = () => setMenuVisible((visible) => !visible);
+  const toggleMenu = useCallback(() => setMenuVisible((visible) => !visible), [setMenuVisible]);
 
   return (
     <>
