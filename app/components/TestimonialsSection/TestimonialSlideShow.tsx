@@ -7,11 +7,16 @@ import { Navigation } from "swiper";
 
 export default function TestimonialSlideShow() {
   return (
-    <Swiper slidesPerView={1} navigation={true} modules={[Navigation]}>
+    <Swiper
+      slidesPerView={1}
+      navigation={true}
+      modules={[Navigation]}
+      className="max-md:mx-[-20px]"
+    >
       {testimonials.map((testimonial) => (
         <SwiperSlide key={testimonial.id}>
-          <article className="m-auto flex flex-col md:flex-row gap-10 w-[fit-content]">
-            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px] m-auto">
+          <article className="m-auto flex flex-col md:flex-row gap-5 w-[fit-content] max-md:px-5 md:items-start">
+            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px] max-md:m-auto">
               <Image
                 src={path.join("/", testimonial.photo)}
                 alt="Testimonial author photo"

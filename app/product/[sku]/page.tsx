@@ -1,6 +1,7 @@
 import { useGetProductBySku } from "@/app/product/[sku]/data/useGetProductBySku";
-import { notFound, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import Image from "next/image";
+import Button from "@/app/shared/Button/Button";
 
 const ProductDetailsPage = ({
   params: { sku },
@@ -14,7 +15,6 @@ const ProductDetailsPage = ({
   return (
     <main className="flex flex-col lg:flex-row w-full flex-wrap gap-[24px] px-5 py-10 lg:py-20 lg:px-10">
       <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
-
         <figure className="block w-ful pt-[100%] md:pt-0 md:w-[260px] lg:h-[300px] relative shrink-0">
           <Image src={`/${product.path}`} alt={product.name} fill />
         </figure>
@@ -33,9 +33,7 @@ const ProductDetailsPage = ({
                 {product.price.referencePrice}DH
               </strong>
             </div>
-            <button className="p-4 text-xl font-bold bg-green-600 rounded-md text-white">
-              Order via whatsapp!
-            </button>
+            <Button href="/">Add to cart</Button>
           </div>
         </section>
       </div>
