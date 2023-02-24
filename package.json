@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "tailwind": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "prettier": "prettier --write ./app/**/*.{tsx,ts}"
+    "prettier": "prettier --write ./app/**/*.{tsx,ts} ./cdk/**/*.ts"
   },
   "dependencies": {
     "@next/font": "13.1.6",
