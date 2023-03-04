@@ -1,75 +1,66 @@
-import { RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
-import { Construct } from "constructs";
-import * as ecr from "aws-cdk-lib/aws-ecr";
-import * as cdk from "aws-cdk-lib";
-import * as ecs from "aws-cdk-lib/aws-ecs";
+import {Stack, StackProps} from "aws-cdk-lib";
+import {Construct} from "constructs";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
-import * as autoscaling from "aws-cdk-lib/aws-autoscaling";
-import { DockerImageAsset } from 'aws-cdk-lib/aws-ecr-assets';
+import {SubnetType} from "aws-cdk-lib/aws-ec2";
+import {readFileSync} from 'fs'
 import * as path from 'path'
 
+const githubRepository = 'git@github.com:ybouhjira/resart-nextjs-frontend.git'
 
 export class CdkStack extends Stack {
-  private vpc: ec2.Vpc;
-  private nextJsEcrRepository: ecr.Repository;
-
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    this.buildVpc()
-    this.buildEcrRepository()
-    this.buildEcsCluster()
-  }
-
-  private buildVpc() {
-    this.vpc = new ec2.Vpc(this, "ResartVpc", { natGateways: 0 });
-  }
-
-  private buildEcrRepository() {
-     this.nextJsEcrRepository = new ecr.Repository(
-        this,
-        "ResartNextJsRepository",
-        {
-          repositoryName: "resart-nextjs",
-        }
-    );
-
-    const image = new DockerImageAsset(this, 'MyBuildImage', {
-      directory: path.join(__dirname, '../..'),
-      file: 'Dockerfile',
-      exclude: ['cdk', 'node_modules']
-    });
-  }
-
-  private buildEcsCluster() {
-    const vpc = this.vpc
-
-    const ecsCluster = new ecs.Cluster(this, "ResartNextJsCluster", {
-      vpc,
+    const vpc = new ec2.Vpc(this, "ResartVpc", {
+      natGateways: 0,
     });
 
-    const autoScalingGroup = new autoscaling.AutoScalingGroup(this, 'AutoScalingGroup', {
+    const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
       vpc,
+    })
+
+    securityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcp(22),
+        'allow ssh from any IPv4 address',
+    )
+    securityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcp(80),
+        'allow http traffic from any IPv4 address',
+    )
+    securityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcp(3000),
+        'allow http traffic from any IPv4 address',
+    )
+
+    const instance = new ec2.Instance(this, "Ec2Instance", {
+      vpc,
+      vpcSubnets: {subnetType: SubnetType.PUBLIC},
       instanceType: new ec2.InstanceType("t2.micro"),
-      machineImage: new ecs.BottleRocketImage(),
-      desiredCapacity: 1,
-      maxCapacity: undefined,
-      associatePublicIpAddress: true,
-      vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC }
-    })
-
-    ecsCluster.addAsgCapacityProvider(new ecs.AsgCapacityProvider(this, 'AsgCapacityProvider', {autoScalingGroup}));
-
-    const taskDefinition = new ecs.Ec2TaskDefinition(this, "TaskDefinition");
-    taskDefinition.addContainer('ResartNextJsDockerContainer', {
-      image: ecs.ContainerImage.fromEcrRepository(this.nextJsEcrRepository, 'master'),
-      memoryLimitMiB: 1024,
-    })
-
-    const service = new ecs.Ec2Service(this, "EcsService", {
-      cluster: ecsCluster,
-      taskDefinition: taskDefinition,
+      machineImage: ec2.MachineImage.latestAmazonLinux(),
+      securityGroup,
     });
-  }
 
+    const idRSA = readFileSync(path.join(__dirname, '../id_rsa')).toString();
+    const idRSAPub = readFileSync(path.join(__dirname, '../id_rsa')).toString();
+    instance.addUserData(`
+      #!/bin/bash
+      sudo yum update -y
+      sudo yum install -y nodejs
+      sudo npm install -g yarn
+      sudo npm install -g typescript
+      mkdir ~/.ssh
+      echo ${idRSA} >> ~/.ssh/id_rsa
+      echo ${idRSAPub} >> ~/.ssh/id_rsa.pub  
+      sudo yum install git
+      cd ~
+      git clone ${githubRepository}
+      cd ~/resart-nextjs-frontend
+      yarn install
+      yarn build 
+      yarn start
+    `);
+  }
 }
