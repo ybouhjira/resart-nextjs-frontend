@@ -52,7 +52,9 @@ export class CdkStack extends Stack {
       vpc,
       vpcSubnets: {subnetType: SubnetType.PUBLIC},
       instanceType: ec2.InstanceType.of(InstanceClass.T2, InstanceSize.MICRO),
-      machineImage: ec2.MachineImage.latestAmazonLinux(),
+      machineImage: new ec2.GenericLinuxImage({
+        'eu-west-3': 'ami-05b457b541faec0ca' // Ubuntu Server 22.04
+      }),
       securityGroup,
       keyName,
     });
@@ -61,20 +63,27 @@ export class CdkStack extends Stack {
     const idRSAPub = readFileSync(path.join(__dirname, '../id_rsa')).toString();
     instance.addUserData(`
       #!/bin/bash
-      sudo yum update -y
-      sudo yum install -y nodejs
-      sudo npm install -g yarn
-      sudo npm install -g typescript
-      mkdir ~/.ssh
-      echo ${idRSA} >> ~/.ssh/id_rsa
-      echo ${idRSAPub} >> ~/.ssh/id_rsa.pub  
-      sudo yum install git
-      cd ~
-      git clone ${githubRepository}
-      cd ~/resart-nextjs-frontend
-      yarn install
-      yarn build 
-      yarn start
+      main() {
+        sudo apt-get update -y
+        sudo apt-get install -y npm git
+        sudo npm install -g yarn n typescript
+        sudo n 16
+        hash -r
+        
+        echo "${idRSA}" >> ~/.ssh/id_rsa
+        echo "${idRSAPub}" >> ~/.ssh/id_rsa.pub  
+        chmod 700 ~/.ssh/id_rsa*
+        ssh-keyscan github.com  >> ~/.ssh/known_hosts
+        
+        cd ~
+        git clone ${githubRepository}
+        cd ~/resart-nextjs-frontend
+        yarn install
+        rm cdk -rf
+        yarn build 
+        yarn start
+      }
+      main | logger
     `);
   }
 }
