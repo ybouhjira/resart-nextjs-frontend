@@ -1,11 +1,12 @@
 import {Stack, StackProps} from "aws-cdk-lib";
 import {Construct} from "constructs";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
-import {SubnetType} from "aws-cdk-lib/aws-ec2";
+import {InstanceClass, InstanceSize, SubnetType} from "aws-cdk-lib/aws-ec2";
 import {readFileSync} from 'fs'
 import * as path from 'path'
 
 const githubRepository = 'git@github.com:ybouhjira/resart-nextjs-frontend.git'
+const keyName = 'resart-nextjs-keypair'
 
 export class CdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -13,6 +14,13 @@ export class CdkStack extends Stack {
 
     const vpc = new ec2.Vpc(this, "ResartVpc", {
       natGateways: 0,
+      subnetConfiguration: [
+        {
+          cidrMask: 24,
+          subnetType: SubnetType.PUBLIC,
+          name: 'public-subnet'
+        }
+      ]
     });
 
     const securityGroup = new ec2.SecurityGroup(this, 'SecurityGroup', {
@@ -34,13 +42,19 @@ export class CdkStack extends Stack {
         ec2.Port.tcp(3000),
         'allow http traffic from any IPv4 address',
     )
+    securityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcp(443),
+        'allow HTTPS traffic from anywhere'
+    );
 
     const instance = new ec2.Instance(this, "Ec2Instance", {
       vpc,
       vpcSubnets: {subnetType: SubnetType.PUBLIC},
-      instanceType: new ec2.InstanceType("t2.micro"),
+      instanceType: ec2.InstanceType.of(InstanceClass.T2, InstanceSize.MICRO),
       machineImage: ec2.MachineImage.latestAmazonLinux(),
       securityGroup,
+      keyName,
     });
 
     const idRSA = readFileSync(path.join(__dirname, '../id_rsa')).toString();
