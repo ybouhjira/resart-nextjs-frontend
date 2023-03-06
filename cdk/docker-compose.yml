@@ -1,4 +1,7 @@
 services:
-  database:
+  mysql-dev:
     image: mysql
-
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: resart
+      MYSQL_PASSWORD: password

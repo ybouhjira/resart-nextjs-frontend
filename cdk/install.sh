@@ -12,14 +12,14 @@ main() {
 
   cd ~
   git clone "https://github.com/ybouhjira/$repoName.git"
-  cd "~/$repoName"
+  cd "/home/ubuntu/$repoName"
   yarn install --production
   rm cdk -rf
   yarn build
   sudo pm2 start
   sudo env PATH=$PATH:/usr/local/bin \
     /usr/local/lib/node_modules/pm2/bin/pm2 \
-    startup systemd -u root --hp "~/$repoName"
+    startup systemd -u root --hp "/home/ubuntu/$repoName"
 }
 
 # send to syslog for easy debugging
