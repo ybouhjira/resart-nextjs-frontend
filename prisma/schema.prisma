@@ -9,3 +9,22 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Product {
+  sku            String      @id @default(uuid())
+  createdAt      DateTime    @default(now())
+  updateAt       DateTime    @updatedAt
+  name           String      @unique
+  referencePrice Float
+  currentPrice   Float
+  variations     Variation[]
+  description    String
+}
+
+model Variation {
+  id         String  @id @default(uuid())
+  product    Product @relation(fields: [productSku], references: [sku])
+  productSku String
+  color      String
+  image      String
+}
