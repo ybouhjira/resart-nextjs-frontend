@@ -40,8 +40,11 @@ export class CdkStack extends Stack {
       keyName,
     });
 
-    instance.addUserData(
-      fs.readFileSync(path.join(__dirname, "../install.sh")).toString()
-    );
+    ec2.UserData.forLinux().addExecuteFileCommand({
+      filePath: path.join(__dirname, "../install.sh")
+    })
+    // instance.addUserData(
+    //   fs.readFileSync().toString()
+    // );
   }
 }

@@ -6,3 +6,5 @@ services:
       MYSQL_USER: resart
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: resart
+    ports:
+      - 3306:3306

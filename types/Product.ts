@@ -4,8 +4,8 @@ interface Product {
   sku: string;
   name: string;
   price: {
-    referencePrice: 10;
-    currentPrice: 8;
+    referencePrice: number;
+    currentPrice: number;
   };
   variations: Variation[];
   path: string;

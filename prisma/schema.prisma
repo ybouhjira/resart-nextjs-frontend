@@ -18,7 +18,7 @@ model Product {
   referencePrice Float
   currentPrice   Float
   variations     Variation[]
-  description    String
+  description    String      @db.LongText
 }
 
 model Variation {
