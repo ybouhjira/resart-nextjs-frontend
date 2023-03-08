@@ -11,6 +11,17 @@ const nextConfig = {
 
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'resart-product-photos-dev.s3.eu-west-3.amazonaws.com',
+        port: '',
+        pathname: '/'
+      }
+    ],
+    domains: ['resart-product-photos-dev.s3.eu-west-3.amazonaws.com']
+  },
   output: 'standalone',
 };
 

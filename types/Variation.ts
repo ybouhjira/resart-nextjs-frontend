@@ -1,5 +1,8 @@
 interface Variation {
-  color: string;
+  color: string
+  images: string[]
+  referencePrice: number;
+  currentPrice: number;
 }
 
 export default Variation;

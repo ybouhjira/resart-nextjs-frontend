@@ -6,18 +6,24 @@ const prisma = new PrismaClient()
 
 async function main() {
 
+    prisma.product.deleteMany()
     const createQueries = products.map(async product => {
         return prisma.product.create({
             data: {
                 sku: product.sku,
                 name: product.name,
-                currentPrice: product.price.currentPrice,
-                referencePrice: product.price.referencePrice,
                 description: product.description,
+
                 variations: {
                     create: {
+                        referencePrice: product.variations[0].referencePrice,
+                        currentPrice: product.variations[0].currentPrice,
                         color: 'red',
-                        image: product.path,
+                        images:{
+                            create: {
+                                path: product.variations[0].images[0]
+                            }
+                        }
                     }
                 }
 

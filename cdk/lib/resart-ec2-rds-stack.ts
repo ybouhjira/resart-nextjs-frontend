@@ -41,8 +41,8 @@ export class ResartEc2RdsStack extends Stack {
     });
 
     ec2.UserData.forLinux().addExecuteFileCommand({
-      filePath: path.join(__dirname, "../install.sh")
-    })
+      filePath: path.join(__dirname, "../install.sh"),
+    });
     // instance.addUserData(
     //   fs.readFileSync().toString()
     // );

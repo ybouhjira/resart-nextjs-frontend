@@ -11,20 +11,28 @@ datasource db {
 }
 
 model Product {
-  sku            String      @id @default(uuid())
-  createdAt      DateTime    @default(now())
-  updateAt       DateTime    @updatedAt
-  name           String      @unique
-  referencePrice Float
-  currentPrice   Float
-  variations     Variation[]
-  description    String      @db.LongText
+  sku       String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+  name      String   @unique
+
+  variations  Variation[]
+  description String      @db.LongText
 }
 
 model Variation {
-  id         String  @id @default(uuid())
-  product    Product @relation(fields: [productSku], references: [sku])
-  productSku String
-  color      String
-  image      String
+  id             String         @id @default(uuid())
+  product        Product        @relation(fields: [productSku], references: [sku])
+  productSku     String
+  color          String
+  images         ProductPhoto[]
+  referencePrice Float
+  currentPrice   Float
+}
+
+model ProductPhoto {
+  id          Int        @id @default(autoincrement())
+  path        String
+  Variation   Variation? @relation(fields: [variationId], references: [id])
+  variationId String?
 }
