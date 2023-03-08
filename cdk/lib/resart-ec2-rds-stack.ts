@@ -9,7 +9,7 @@ const SSH_PORT = 22;
 const HTTP_PORT = 80;
 const keyName = "resart-nextjs-keypair";
 
-export class CdkStack extends Stack {
+export class ResartEc2RdsStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
