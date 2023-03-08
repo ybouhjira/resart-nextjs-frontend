@@ -1,8 +1,8 @@
-import Image from "next/image";
 import styles from "./ProductCard.module.css";
 import cx from 'classnames';
 import Link from "next/link";
 import Product from "@resart/types/Product";
+import ProductImage from "@/components/ProductImage/ProductImage";
 
 interface Props {
     product: Product
@@ -11,8 +11,8 @@ const ProductCard = ({product}: Props) => {
     return (
         <Link href={`product/${product.sku}`} className={cx("block", styles.productCard)}>
             <div className={cx("relative", styles.image)}>
-               <Image
-                    src={`https://resart-product-photos-dev.s3.eu-west-3.amazonaws.com/${product.variations[0].images[0]}`}
+               <ProductImage
+                    src={`${product.variations[0].images[0]}`}
                     alt={product.name}
                     fill/>
             </div>

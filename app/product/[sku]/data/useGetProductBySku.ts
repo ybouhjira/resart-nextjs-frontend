@@ -1,8 +1,23 @@
+import {PrismaClient} from "@prisma/client";
+import Product from "@/types/Product";
+import {mapProduct} from "@/app/products/useGetProducts";
+
 "server-only";
 
-import products from "@/app/data/products";
-import Product from "@/types/Product";
+export const useGetProductBySku = async (sku: string): Promise<Product>  => {
+  const prisma = new PrismaClient()
 
-export const useGetProductBySku = (sku: string): Product | undefined => {
-  return products.find((product) => product.sku === sku);
+
+  return mapProduct(await prisma.product.findUniqueOrThrow({
+    where: {
+      sku
+    },
+    include: {
+      variations: {
+        include: {
+          images: true,
+        }
+      }
+    }
+  }))
 };

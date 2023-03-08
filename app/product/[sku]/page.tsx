@@ -2,13 +2,16 @@ import { useGetProductBySku } from "@/app/product/[sku]/data/useGetProductBySku"
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Button from "@/app/shared/Button/Button";
+import ProductImage from "@/components/ProductImage/ProductImage";
 
-const ProductDetailsPage = ({
+interface Props {
+  params: { sku: string }
+}
+
+const ProductDetailsPage = async ({
   params: { sku },
-}: {
-  params: { sku: string };
-}) => {
-  const product = useGetProductBySku(sku);
+}: Props) => {
+  const product = await useGetProductBySku(sku);
 
   if (!product) notFound();
 
@@ -16,7 +19,7 @@ const ProductDetailsPage = ({
     <main className="flex flex-col lg:flex-row w-full flex-wrap gap-[24px] px-5 py-10 lg:py-20 lg:px-10">
       <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
         <figure className="block w-ful pt-[100%] md:pt-0 md:w-[260px] lg:h-[300px] relative shrink-0">
-          <Image src={`/${product.path}`} alt={product.name} fill />
+          <ProductImage src={product.variations[0].images[0]} alt={product.name} fill />
         </figure>
 
         <section>
@@ -27,10 +30,10 @@ const ProductDetailsPage = ({
           <div className="flex flex-col lg:flex-row justify-between items-center ">
             <div className="flex gap-x-2.5">
               <strong className="text-3xl text-red-500">
-                {product.price.currentPrice}DH
+                {product.variations[0].currentPrice}DH
               </strong>
               <strong className="text-3xl line-through">
-                {product.price.referencePrice}DH
+                {product.variations[0].referencePrice}DH
               </strong>
             </div>
             <Button href="/">Add to cart</Button>
