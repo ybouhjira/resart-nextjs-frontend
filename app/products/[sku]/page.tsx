@@ -1,11 +1,25 @@
 import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Button from "@/app/shared/Button/Button";
 import ProductImage from "@/components/ProductImage/ProductImage";
+import { useGetProducts } from "@/app/products/useGetProducts";
+import { PrismaClient } from "@prisma/client";
 
 interface Props {
   params: { sku: string };
+}
+
+export async function getStaticPaths() {
+  const prisma = new PrismaClient();
+
+  const products = await prisma.product.findMany({
+    select: { sku: true },
+  });
+
+  return {
+    paths: products.map((p) => ({ params: { sku: p.sku } })),
+    fallback: false,
+  };
 }
 
 const ProductDetailsPage = async ({ params: { sku } }: Props) => {
