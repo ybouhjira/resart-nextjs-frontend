@@ -7,19 +7,25 @@ import ProductImage from "@/components/ProductImage/ProductImage";
 interface Props {
     product: Product
 }
+
 const ProductCard = ({product}: Props) => {
     return (
-        <Link href={`product/${product.sku}`} className={cx("block", styles.productCard)} data-testid="ProductCard">
-            <div className={cx("relative", styles.image)}>
-               <ProductImage
+        <Link href={`products/${product.sku}`}
+              className="block w-[274px] border border-gray-300 text-gray-800 shadow-gray-500 shadow-sm bg-white"
+              data-testid="ProductCard">
+            <div className="relative w-full">
+                <ProductImage
                     src={`${product.variations[0].images[0]}`}
                     alt={product.name}
-                    fill/>
+                    width={274}
+                    height={274}
+                    className="border-4 border-white"
+                />
             </div>
-            <div className={styles.info}>
-                <div className={styles.name}>{product.name}</div>
-                <div className={styles.referencePrice}>{product.variations[0].referencePrice} DH</div>
-                <div className={styles.currentPrice}>{product.variations[0].currentPrice} DH</div>
+            <div className="p-2">
+                <div className="text-[24px] font-bold">{product.name}</div>
+                <span className="line-through">{product.variations[0].referencePrice} DH</span>
+                <strong className="ml-2 text-[#d32f2f] text-[18px] font-bold">{product.variations[0].currentPrice} DH</strong>
             </div>
         </Link>
     );

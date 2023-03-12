@@ -5,9 +5,9 @@ export default async function Home() {
   const products = await useGetProducts();
 
   return (
-    <main className="flex w-full flex-wrap gap-[24px] py-20 px-10">
+    <main className="flex max-w-[1024px] m-auto p-10 gap-5 flex-wrap justify-center md:justify-start">
       {products.map((product) => (
-        <ProductCard product={product} />
+        <ProductCard product={product} key={product.sku} />
       ))}
     </main>
   );

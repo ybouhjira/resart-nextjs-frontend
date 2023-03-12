@@ -1,16 +1,14 @@
-import { useGetProductBySku } from "@/app/product/[sku]/data/useGetProductBySku";
+import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Button from "@/app/shared/Button/Button";
 import ProductImage from "@/components/ProductImage/ProductImage";
 
 interface Props {
-  params: { sku: string }
+  params: { sku: string };
 }
 
-const ProductDetailsPage = async ({
-  params: { sku },
-}: Props) => {
+const ProductDetailsPage = async ({ params: { sku } }: Props) => {
   const product = await useGetProductBySku(sku);
 
   if (!product) notFound();
@@ -18,8 +16,14 @@ const ProductDetailsPage = async ({
   return (
     <main className="flex flex-col lg:flex-row w-full flex-wrap gap-[24px] px-5 py-10 lg:py-20 lg:px-10">
       <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
-        <figure className="block w-ful pt-[100%] md:pt-0 md:w-[260px] lg:h-[300px] relative shrink-0">
-          <ProductImage src={product.variations[0].images[0]} alt={product.name} fill />
+        <figure className="lg:w-full">
+          <ProductImage
+            src={product.variations[0].images[0]}
+            alt={product.name}
+            width={560}
+            height={560}
+            className="w-full"
+          />
         </figure>
 
         <section>
