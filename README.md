@@ -2,14 +2,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+How to run in dev
 
 ```bash
-npm run dev
-# or
+#create .env file
+cp .env.dev .env
+# start mysql server
+docker compose up
+# start nextjs app
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

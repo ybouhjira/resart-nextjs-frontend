@@ -9,7 +9,7 @@ interface Props {
 }
 const ProductCard = ({product}: Props) => {
     return (
-        <Link href={`product/${product.sku}`} className={cx("block", styles.productCard)}>
+        <Link href={`product/${product.sku}`} className={cx("block", styles.productCard)} data-testid="ProductCard">
             <div className={cx("relative", styles.image)}>
                <ProductImage
                     src={`${product.variations[0].images[0]}`}
