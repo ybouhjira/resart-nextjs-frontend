@@ -1,5 +1,4 @@
 import SearchPage from "@/cypress/pages/SearchPage";
-import {expect} from "local-cypress";
 
 describe('product search page', () => {
 
