@@ -1,4 +1,3 @@
-import SlideShow from "@/app/components/MainBanner/SlideShow";
 import Button from "@/app/shared/Button/Button";
 
 export default function MainBanner() {
@@ -21,7 +20,6 @@ export default function MainBanner() {
           Browse our products
         </Button>
       </nav>
-      <SlideShow />
     </section>
   );
 }
