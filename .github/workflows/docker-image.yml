@@ -9,18 +9,18 @@ on:
 jobs:
 
   cypress-test:
+
+    runs-on: ubuntu-latest
     services:
       mysql:
         image: mysql
-        environment:
+        env:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_USER: resart
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: resart
         ports:
           - 3306:3306
-    runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v1
