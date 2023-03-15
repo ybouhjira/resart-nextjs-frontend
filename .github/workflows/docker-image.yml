@@ -16,7 +16,7 @@ jobs:
     - uses: actions/setup-node@v1
     - name: Run cypress tests
       with:
-        node-version: 12
+        node-version: 18
     - run: npm install -g yarn cypress
     - run: yarn install --frozen-lockfile
     - run: yarn docker-compose
