@@ -21,7 +21,7 @@ jobs:
     - run: yarn install --frozen-lockfile
     - run: yarn docker-compose
     - run: cp .env.dev .env
-    - run: prisma db migrate dev
+    - run: prisma migrate dev
     - run: prisma db seed
     - run: yarn build
     - run: yarn start
