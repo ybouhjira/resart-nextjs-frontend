@@ -26,11 +26,11 @@ jobs:
     - uses: actions/setup-node@v1
       with:
           node-version: 18
-    - run: npm install -g yarn cypress ts-node prisma
+    - run: npm install -g yarn cypress ts-node prisma pm2
     - run: yarn install --frozen-lockfile
     - run: cp .env.dev .env
     - run: prisma migrate dev
     - run: prisma db seed
     - run: yarn build
-    - run: yarn start
+    - run: sudo pm2 start
     - run: cypress run
