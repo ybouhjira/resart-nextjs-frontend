@@ -21,6 +21,7 @@ jobs:
     - run: yarn install --frozen-lockfile
     - run: yarn docker-compose
     - run: cp .env.dev .env
+    - run: npx prisma db seed
     - run: yarn build
     - run: yarn start
     - run: cypress run
