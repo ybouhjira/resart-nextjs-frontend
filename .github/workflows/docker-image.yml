@@ -17,7 +17,7 @@ jobs:
     - uses: actions/setup-node@v1
       with:
           node-version: 18
-    - run: npm install -g yarn cypress
+    - run: npm install -g yarn cypress ts-node
     - run: yarn install --frozen-lockfile
     - run: yarn docker-compose
     - run: cp .env.dev .env
