@@ -20,6 +20,7 @@ jobs:
     - run: npm install -g yarn cypress
     - run: yarn install --frozen-lockfile
     - run: yarn docker-compose
+    - run: yarn cp .env.dev .env
     - run: yarn build
     - run: yarn start
     - run: cypress run
