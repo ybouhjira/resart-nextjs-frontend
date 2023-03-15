@@ -5,18 +5,20 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-services:
-  mysql:
-    image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: resart
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: resart
-    ports:
-      - 3306:3306
+
 jobs:
-  build:
+
+  cypress-test:
+    services:
+      mysql:
+        image: mysql
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_USER: resart
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: resart
+        ports:
+          - 3306:3306
     runs-on: ubuntu-latest
 
     steps:
