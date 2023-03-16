@@ -2,11 +2,11 @@ import BasePage from "@/cypress/pages/BasePage";
 import ProductCard from "@/cypress/components/ProductCard";
 
 export default class SearchPage extends BasePage {
-    url() {
-        return `${this.baseURL()}/products`
-    }
+  url() {
+    return `/products`;
+  }
 
-    products() {
-        return new ProductCard().root()
-    }
+  products() {
+    return new ProductCard().root();
+  }
 }

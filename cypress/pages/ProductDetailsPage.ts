@@ -1,15 +1,15 @@
 import BasePage from "@/cypress/pages/BasePage";
 
 export default class ProductDetailsPage extends BasePage {
-    constructor(readonly sku: string) {
-        super();
-    }
+  constructor(readonly sku: string) {
+    super();
+  }
 
-    url() {
-        return `${this.baseURL()}/products/${this.sku}`
-    }
+  url() {
+    return `/products/${this.sku}`;
+  }
 
-    image() {
-        return cy.get('[data-testid="product-image"]')
-    }
+  image() {
+    return cy.get('[data-testid="product-image"]');
+  }
 }
