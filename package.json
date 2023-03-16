@@ -11,7 +11,9 @@
     "prettier": "prettier --write ./app/**/*.{tsx,ts} ./cdk/**/*.ts",
     "prettier:watch": "prettier --watch ./app/**/*.{tsx,ts} ./cdk/**/*.ts",
     "docker-compose": "docker compose up -d",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress:ci": "CYPRESS_BASE_URL=http://localhost:80/ cypress run",
+    "create-database": "prisma migrate dev && prisma db seed"
   },
   "dependencies": {
     "@next/font": "13.1.6",
