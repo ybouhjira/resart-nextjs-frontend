@@ -1,9 +1,9 @@
 import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
 import Button from "@/app/shared/Button/Button";
-import ProductImage from "@/components/ProductImage/ProductImage";
-import { useGetProducts } from "@/app/products/useGetProducts";
 import { PrismaClient } from "@prisma/client";
+import ProductFigure from "@/app/products/[sku]/components/ProductFigure";
+import { Text } from "@/app/components/shared/Text";
 
 interface Props {
   params: { sku: string };
@@ -27,34 +27,39 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
 
   if (!product) notFound();
 
+  const mainVariation = product.variations[0];
+
   return (
-    <main className="flex flex-col lg:flex-row w-full flex-wrap gap-[24px] px-5 py-10 lg:py-20 lg:px-10">
+    <main className="max-w-screen-max m-auto flex">
       <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
-        <figure className="lg:w-full">
-          <ProductImage
-            src={product.variations[0].images[0]}
-            alt={product.name}
-            width={560}
-            height={560}
-            className="w-full"
-          />
-        </figure>
+        <ProductFigure src={mainVariation.images[0]} alt={product.name} />
 
         <section>
-          <h2 className="text-3xl font-bold mb-5">{product.name}</h2>
-
-          <main className="text-[24px] mb-10">{product.description}</main>
+          <Text.H2>{product.name}</Text.H2>
+          <Text.P>{product.description}</Text.P>
 
           <div className="flex flex-col lg:flex-row justify-between items-center ">
             <div className="flex gap-x-2.5">
-              <strong className="text-3xl text-red-500">
-                {product.variations[0].currentPrice}DH
-              </strong>
-              <strong className="text-3xl line-through">
-                {product.variations[0].referencePrice}DH
-              </strong>
+              <Text.Price className="text-3xl">
+                {mainVariation.currentPrice}
+              </Text.Price>
+
+              <Text.Price reference className="text-3xl">
+                {mainVariation.referencePrice}
+              </Text.Price>
             </div>
-            <Button href="/">Add to cart</Button>
+            <div>
+              <Button
+                className="w-full block"
+                href="/"
+                style={{
+                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25))",
+                  textAlign: "center",
+                }}
+              >
+                Add to cart
+              </Button>
+            </div>
           </div>
         </section>
       </div>

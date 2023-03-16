@@ -7,8 +7,8 @@ export default function Header() {
   debugger;
   return (
     <header className="bg-white sm:px-5 lg:px-10">
-      <div className="flex justify-between items-center">
-        <Link href="/" className="relative w-[100px]">
+      <div className="flex justify-between items-center max-w-screen-max m-auto">
+        <Link href="/" className="relative w-xl">
           <Logo className="w-full" />
         </Link>
 
