@@ -37,7 +37,7 @@ const products: Product[] = [
         referencePrice: 10,
         currentPrice: 8,
         color: "red",
-        images: ["151780318_5412425862163062_7745499523184083421_n.jp"],
+        images: ["151780318_5412425862163062_7745499523184083421_n.jpg"],
       },
     ],
     description:
@@ -51,7 +51,7 @@ const products: Product[] = [
         referencePrice: 10,
         currentPrice: 8,
         color: "red",
-        images: ["152234953_2912776658999005_4504133482590280314_n.jp"],
+        images: ["152234953_2912776658999005_4504133482590280314_n.jpg"],
       },
     ],
     description:
@@ -65,7 +65,7 @@ const products: Product[] = [
         referencePrice: 10,
         currentPrice: 8,
         color: "red",
-        images: ['152690265_740113026646424_411832573629936491_n.jpg"'],
+        images: ["152690265_740113026646424_411832573629936491_n.jpg"],
       },
     ],
     description:
