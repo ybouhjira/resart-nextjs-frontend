@@ -27,6 +27,7 @@ module.exports = {
         max: "1164px",
       },
       colors: {
+        whatsapp: "#25D366",
         dark: "#001B4F",
         main: "#7DB9B6",
         lightBackground: "#feefdf",

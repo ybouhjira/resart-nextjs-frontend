@@ -8,11 +8,8 @@ export default function Button({ className, children, href }: Props) {
   return (
     <Link
       href={href}
-      style={{
-        boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
-      }}
       className={cx(
-        `bg-main text-white text-bold rounded-2 text-center text-dark font-bold py-2.5 px-10`,
+        `bg-main text-white text-bold rounded-2 text-center text-dark font-bold py-2.5 px-10 shadow-lg shadow-dark/25 whitespace-nowrap`,
         className
       )}
     >

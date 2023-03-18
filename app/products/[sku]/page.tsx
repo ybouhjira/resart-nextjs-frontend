@@ -1,9 +1,9 @@
-import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
-import { notFound } from "next/navigation";
+import {useGetProductBySku} from "@/app/products/[sku]/data/useGetProductBySku";
+import {notFound} from "next/navigation";
 import Button from "@/app/shared/Button/Button";
-import { PrismaClient } from "@prisma/client";
-import ProductFigure from "@/app/products/[sku]/components/ProductFigure";
-import { Text } from "@/app/components/shared/Text";
+import {PrismaClient} from "@prisma/client";
+import Text from '@/components/shared/Text'
+import ProductImage from "@/components/ProductImage/ProductImage";
 
 interface Props {
   params: { sku: string };
@@ -31,33 +31,44 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
 
   return (
     <main className="max-w-screen-max m-auto flex">
-      <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
-        <ProductFigure src={mainVariation.images[0]} alt={product.name} />
-
-        <section>
-          <Text.H2>{product.name}</Text.H2>
+      <div className="flex flex-col md:flex-row gap-5">
+        <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
+          <ProductImage
+              src={mainVariation.images[0]}
+              alt={product.name}
+              width={675}
+              height={675}
+              className="h-full w-auto block object-cover"
+          />
+        </figure>
+        <section className="flex flex-col gap-5 md:basis-1/2">
+          <Text.H>{product.name}</Text.H>
           <Text.P>{product.description}</Text.P>
 
-          <div className="flex flex-col lg:flex-row justify-between items-center ">
-            <div className="flex gap-x-2.5">
-              <Text.Price className="text-3xl">
+          <div className="flex flex-col gap-5 lg:flex-row justify-between items-center">
+            <div className="flex gap-5 items-center">
+              <Text.Price variant="main" className="text-3xl">
                 {mainVariation.currentPrice}
               </Text.Price>
 
-              <Text.Price reference className="text-3xl">
+              <Text.Price variant="ref" className="text-2xl">
                 {mainVariation.referencePrice}
               </Text.Price>
             </div>
-            <div>
+            <div className="self-stretch">
               <Button
-                className="w-full block"
+                className="block"
                 href="/"
-                style={{
-                  filter: "drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.25))",
-                  textAlign: "center",
-                }}
               >
                 Add to cart
+              </Button>
+            </div>
+            <div className="self-stretch">
+              <Button
+                  className="block bg-transparent text-whatsapp border-whatsapp border-2 text-[#25D366]"
+                  href="/"
+              >
+                Order through Whatsapp
               </Button>
             </div>
           </div>
