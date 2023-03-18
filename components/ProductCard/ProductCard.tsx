@@ -11,7 +11,7 @@ const ProductCard = ({product}: Props) => {
     const mainVariation = product.variations[0];
     return (
         <Link href={`products/${product.sku}`}
-              className="block w-[274px] text-gray-800"
+              className="block w-full"
               data-testid="ProductCard">
             <figure className="relative w-full rounded overflow-hidden">
                 <ProductImage
@@ -19,10 +19,11 @@ const ProductCard = ({product}: Props) => {
                     alt={product.name}
                     width={274}
                     height={274}
+                    className="object-cover w-full"
                 />
             </figure>
             <div className="p-2">
-                <div className="text-[24px] font-bold">{product.name}</div>
+                <div className="text-2xl font-[500] font-bold">{product.name}</div>
                 <Text.Price variant="ref">{mainVariation.referencePrice}</Text.Price>
                 <Text.Price>{mainVariation.currentPrice}</Text.Price>
             </div>
