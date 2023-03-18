@@ -11,17 +11,16 @@ interface Props {
 const ProductCard = ({product}: Props) => {
     return (
         <Link href={`products/${product.sku}`}
-              className="block w-[274px] border border-gray-300 text-gray-800 shadow-gray-500 shadow-sm bg-white"
+              className="block w-[274px] text-gray-800"
               data-testid="ProductCard">
-            <div className="relative w-full">
+            <figure className="relative w-full rounded overflow-hidden">
                 <ProductImage
                     src={`${product.variations[0].images[0]}`}
                     alt={product.name}
                     width={274}
                     height={274}
-                    className="border-4 border-white"
                 />
-            </div>
+            </figure>
             <div className="p-2">
                 <div className="text-[24px] font-bold">{product.name}</div>
                 <span className="line-through">{product.variations[0].referencePrice} DH</span>

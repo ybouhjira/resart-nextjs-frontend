@@ -14,7 +14,7 @@ module.exports = {
         18: "18px",
       },
       borderRadius: {
-        px: "10px",
+        DEFAULT: "10px",
         2: "20px",
       },
       spacing: {
