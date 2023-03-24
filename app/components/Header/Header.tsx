@@ -2,6 +2,7 @@ import Link from "next/link";
 import Logo from "./logo.svg";
 import BurgerMenu from "@/app/components/Header/BurgerMenu";
 import links from "@/app/components/Header/links";
+import Image from "next/image";
 
 export default function Header() {
   debugger;
@@ -16,10 +17,12 @@ export default function Header() {
           <BurgerMenu />
         </nav>
         <nav className="hidden md:block">
-          <ul className="flex justify-between w-[300px] ">
+          <ul className="flex justify-between w-[300px] items-center">
             {links.map((link, index) => (
               <li key={index}>
-                <Link href={link.url}>{link.text}</Link>
+                <Link href={link.url}>{link.text ? link.text : (
+                    <Image src={link.icon} width={28} height={28} alt="cart button"/>
+                )}</Link>
               </li>
             ))}
           </ul>

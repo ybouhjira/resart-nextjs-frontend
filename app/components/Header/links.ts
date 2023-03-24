@@ -1,4 +1,8 @@
-const links = [
+const links: {
+    text?: string;
+    url: string;
+    icon?: string;
+}[] = [
   {
     text: "Products",
     url: "/products",
@@ -8,8 +12,8 @@ const links = [
     url: "/about",
   },
   {
-    text: "Cart",
     url: "/cart",
+    icon: "icons/cart.svg",
   },
 ] as const;
 
