@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Product from "@resart/types/Product";
 import ProductImage from "@/components/ProductImage/ProductImage";
-import Text from "@/components/shared/Text";
+import Text from "@/components/Text/Text";
 
 interface Props {
     product: Product

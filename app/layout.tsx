@@ -3,7 +3,7 @@ import { Heebo } from "@next/font/google";
 import Header from "@/app/components/Header/Header";
 import { Footer } from "@/app/components/Footer/Footer";
 
-const loraFont = Heebo({ subsets: ["latin"] });
+const font = Heebo({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -11,7 +11,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${loraFont.className} h-full`}>
+    <html lang="en" className={`${font.className} h-full`}>
       <head />
       <body className="flex flex-col h-full bg-white">
         <Header />

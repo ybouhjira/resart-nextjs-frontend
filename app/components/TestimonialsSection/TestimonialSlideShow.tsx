@@ -1,36 +1,42 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
 import * as path from "path";
 import Image from "next/image";
 import { testimonials } from "@/app/data/testimonials";
-import { Navigation } from "swiper";
+import Carousel from "@/components/Carousel/Carousel";
 
 export default function TestimonialSlideShow() {
   return (
-    <Swiper
-      slidesPerView={1}
-      navigation={true}
-      modules={[Navigation]}
-      className="max-md:mx-[-20px]"
-    >
-      {testimonials.map((testimonial) => (
-        <SwiperSlide key={testimonial.id}>
-          <article className="m-auto flex flex-col md:flex-row gap-5 w-[fit-content] max-md:px-5 md:items-start">
-            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px] max-md:m-auto">
-              <Image
-                src={path.join("/", testimonial.photo)}
-                alt="Testimonial author photo"
-                className="bg-cover"
-                fill
-              />
-            </figure>
-            <article className="max-w-[500px]">
-              {testimonial.content}
-              <figcaption>&#8212; {testimonial.name}</figcaption>
-            </article>
-          </article>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <Carousel>
+      {
+        testimonials.map((testimonial) => (
+          <div key={testimonial.id} className="overflow-y-visible">
+            <div className="p-md pb-xl w-[380px] w-[371px]">
+              <article
+                className={`w-full flex flex-col 
+          justify-center gap-md items-center 
+           p-md text-left block
+          shadow-xl
+          `}
+              >
+                <div className="flex items-center gap-md">
+                  <figure className="rounded-full overflow-hidden relative w-2xl h-2xl">
+                    <Image
+                      src={path.join("/", testimonial.photo)}
+                      alt="Testimonial author photo"
+                      className="bg-cover"
+                      fill
+                    />
+                  </figure>
+                  <div className="name">{testimonial.name}</div>
+                </div>
+                <div className="max-w-[75vw] md:max-w-[500px] lg:max-w-[960px]">
+                  {testimonial.content}
+                </div>
+              </article>
+            </div>
+          </div>
+        )).length
+      }
+    </Carousel>
   );
 }

@@ -2,7 +2,7 @@ import {useGetProductBySku} from "@/app/products/[sku]/data/useGetProductBySku";
 import {notFound} from "next/navigation";
 import Button from "@/app/shared/Button/Button";
 import {PrismaClient} from "@prisma/client";
-import Text from '@/components/shared/Text'
+import Text from '@/components/Text/Text'
 import ProductImage from "@/components/ProductImage/ProductImage";
 
 interface Props {
