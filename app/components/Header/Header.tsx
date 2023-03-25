@@ -21,7 +21,7 @@ export default function Header() {
             {links.map((link, index) => (
               <li key={index}>
                 <Link href={link.url}>{link.text ? link.text : (
-                    <Image src={link.icon} width={28} height={28} alt="cart button"/>
+                    link.icon && <Image src={link.icon} width={28} height={28} alt="cart button"/>
                 )}</Link>
               </li>
             ))}
