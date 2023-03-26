@@ -16,6 +16,7 @@
     "create-database": "prisma migrate dev && prisma db seed"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.299.0",
     "@next/font": "13.1.6",
     "@prisma/client": "^4.11.0",
     "@svgr/webpack": "^6.5.1",

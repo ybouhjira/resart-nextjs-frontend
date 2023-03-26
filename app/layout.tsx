@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${font.className} h-full`}>
       <head />
-      <body className="flex flex-col h-full bg-white">
+      <body className="flex flex-col h-full bg-white overflow-x-hidden">
         <Header />
         <main className="grow-[5]">{children}</main>
         <Footer />

@@ -20,9 +20,18 @@ export default function Header() {
           <ul className="flex justify-between w-[300px] items-center">
             {links.map((link, index) => (
               <li key={index}>
-                <Link href={link.url}>{link.text ? link.text : (
-                    link.icon && <Image src={link.icon} width={28} height={28} alt="cart button"/>
-                )}</Link>
+                <Link className="uppercase text-dark font-bold" href={link.url}>
+                  {link.text
+                    ? link.text
+                    : link.icon && (
+                        <Image
+                          src={link.icon}
+                          width={28}
+                          height={28}
+                          alt="cart button"
+                        />
+                      )}
+                </Link>
               </li>
             ))}
           </ul>
