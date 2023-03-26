@@ -1,15 +1,15 @@
 import Link from "next/link";
 import FacebookIcon from "@/components/Icons/FacebookIcon";
-import TailwindConfig from "../../../tailwind.config";
 import WhatsappIcon from "@/components/Icons/WhatsappIcon";
 import InstagramIcon from "@/components/Icons/InstagramIcon";
-import { useColors } from "@/app/ColorContext";
+import useColors from "@/utils/useColors";
 
 export function Footer() {
-  const colors = useColors() as Record<string, string>;
+  const colors = useColors();
+
   return (
     <footer className="bg-main py-5">
-      <div className="max-w-screen-max mx-auto text-dark font-bold justify-between flex">
+      <div className="max-w-screen-max flex flex-col md:flex-row gap-lg mx-auto text-dark font-bold justify-between py-md md:py-lg">
         <nav className="md:w-[400px]">
           <ul className="flex flex-col md:flex-row w-full justify-around text-center uppercase text-large">
             <li>
@@ -23,15 +23,15 @@ export function Footer() {
             </li>
           </ul>
         </nav>
-        <nav className="social-nav px-md justify-center flex-row">
-          <Link href="https://facebook.com/resartmaroc">
-            <FacebookIcon color={colors.dark} />
+        <nav className="social-nav px-md justify-center flex flex-row gap-x-md">
+          <Link className="block" href="https://facebook.com/resartmaroc">
+            <FacebookIcon color={colors.dark} className="w-lg h-lg" />
           </Link>
-          <Link href="">
-            <WhatsappIcon />
+          <Link className="block" href="">
+            <WhatsappIcon color={colors.dark} className="w-lg h-lg" />
           </Link>
-          <Link href="https://instagram.com/resartmaroc">
-            <InstagramIcon />
+          <Link className="block" href="https://instagram.com/resartmaroc">
+            <InstagramIcon color={colors.dark} className="w-lg h-lg" />
           </Link>
         </nav>
       </div>
