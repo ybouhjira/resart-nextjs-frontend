@@ -11,7 +11,7 @@ export default function ProductCarousel({ urls }: Props) {
   return (
     <Swiper slidesPerView="auto" loop>
       {[...urls, ...urls].map((item, index) => (
-        <SwiperSlide key={index} className="w-[fit-content]">
+        <SwiperSlide key={index} className="max-w-[fit-content]">
           <div className="rounded overflow-hidden mx-md" key={item}>
             <Image
               key={item}

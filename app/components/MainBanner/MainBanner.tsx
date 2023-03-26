@@ -1,22 +1,7 @@
 import Button from "@/app/shared/Button/Button";
 import ProductCarousel from "@/app/components/MainBanner/ProductCarousel";
-import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
-import process from "process";
 
-export default async function MainBanner({
-  filePaths,
-}: {
-  filePaths: string[];
-}) {
-  const s3 = new S3Client({ region: process.env.AWS_REGION });
-
-  const { Contents } = await s3.send(
-    new ListObjectsV2Command({
-      Bucket: `${process.env.S3_PHOTOS_BUCKET}`,
-      Prefix: "home-carousel",
-    })
-  );
-
+export default function MainBanner({ images }: { images: string[] }) {
   return (
     <section className="py-2xl">
       <article className="text-center">
@@ -37,11 +22,7 @@ export default async function MainBanner({
         </Button>
       </nav>
 
-      <ProductCarousel
-        urls={(Contents || [])
-          .filter((item) => item.Key?.match(/\.png$/))
-          .map((image) => `${process.env.PHOTOS_BUCKET}/${image.Key}`)}
-      />
+      <ProductCarousel urls={images} />
     </section>
   );
 }

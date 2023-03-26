@@ -1,7 +1,7 @@
 const links: {
-    text?: string;
-    url: string;
-    icon?: string;
+  text?: string;
+  url: string;
+  icon?: string;
 }[] = [
   {
     text: "Products",
@@ -15,6 +15,6 @@ const links: {
     url: "/cart",
     icon: "icons/cart.svg",
   },
-] as const;
+];
 
 export default links;
