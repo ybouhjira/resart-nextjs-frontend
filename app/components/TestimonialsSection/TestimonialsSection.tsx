@@ -8,7 +8,6 @@ export default function TestimonialsSection() {
       title="what people are saying about us? "
       className="bg-white px-0 md:px-0"
     >
-      {testimonials.length}
       <TestimonialSlideShow />
     </Section>
   );
