@@ -1,8 +1,8 @@
-import {useGetProductBySku} from "@/app/products/[sku]/data/useGetProductBySku";
-import {notFound} from "next/navigation";
+import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
+import { notFound } from "next/navigation";
 import Button from "@/app/shared/Button/Button";
-import {PrismaClient} from "@prisma/client";
-import Text from '@/components/Text/Text'
+import { PrismaClient } from "@prisma/client";
+import Text from "@/components/Text/Text";
 import ProductImage from "@/components/ProductImage/ProductImage";
 
 interface Props {
@@ -34,11 +34,11 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
       <div className="flex flex-col md:flex-row gap-5">
         <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
           <ProductImage
-              src={mainVariation.images[0]}
-              alt={product.name}
-              width={675}
-              height={675}
-              className="h-full w-auto block object-cover"
+            src={mainVariation.images[0]}
+            alt={product.name}
+            width={675}
+            height={675}
+            className="h-full w-auto block object-cover"
           />
         </figure>
         <section className="flex flex-col gap-5 md:basis-1/2">
@@ -56,19 +56,16 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
               </Text.Price>
             </div>
             <div className="self-stretch">
-              <Button
-                className="block"
-                href="/"
-              >
+              <Button className="block" href="/">
                 Add to cart
               </Button>
             </div>
             <div className="self-stretch">
               <Button
-                  className="block bg-transparent text-whatsapp border-whatsapp border-2 text-[#25D366]"
-                  href="/"
+                className="block bg-transparent text-whatsapp border-whatsapp border-2 text-whatsapp"
+                href="/"
               >
-                Order through Whatsapp
+                Order On Whatsapp
               </Button>
             </div>
           </div>

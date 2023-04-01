@@ -7,9 +7,9 @@ export default async function Home() {
   return (
     <main className="max-w-screen-max mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-sm md:gap-md">
       {products.map((product) => (
-          <div className="" key={product.sku}>
-            <ProductCard product={product} />
-          </div>
+        <div className="" key={product.sku}>
+          <ProductCard product={product} />
+        </div>
       ))}
     </main>
   );
