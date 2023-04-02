@@ -1,13 +1,21 @@
 "use client";
 
-import BurgerMenuIcon from "./burger-menu-svgrepo-com.svg";
-import { useEffect, useRef, useState } from "react";
+import React, {
+  MouseEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import links from "./links";
 import Link from "next/link";
 import cx from "classnames";
+import BurgerMenuIcon from "@/components/Icons/BurgerMenuIcon";
+import useColors from "@/utils/useColors";
 
-const useClickOutside = (ref, callback) => {
-  const handleClickOutside = (event) => {
+const useClickOutside = (ref: RefObject<HTMLElement>, callback: () => void) => {
+  const handleClickOutside = (event: any) => {
     if (ref.current && !ref.current.contains(event.target)) {
       callback();
     }
@@ -23,27 +31,33 @@ const useClickOutside = (ref, callback) => {
 
 export default function BurgerMenu() {
   const [visible, setVisible] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLElement>(null);
 
-  useClickOutside(ref, () => {
-    if (visible) setVisible(false);
-  });
+  useClickOutside(
+    ref,
+    useCallback(() => {
+      if (visible) setVisible(false);
+    }, [visible, setVisible])
+  );
+
+  const colors = useColors();
 
   return (
     <>
       <button
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-
-          setVisible((visible) => {
-            return !visible;
+        onMouseDown={(e) => {
+          setVisible((v) => {
+            console.log(v);
+            return !v;
           });
-          return false;
         }}
         className="w-10 h-10 z-20 relative block"
       >
-        <BurgerMenuIcon className="w-full h-full" />
+        <BurgerMenuIcon
+          showX={visible}
+          className="w-full h-full"
+          color={colors.dark}
+        />
       </button>
       <input type="checkbox" className="hidden peer" id="menu-toggle" />
       <div
@@ -55,15 +69,17 @@ export default function BurgerMenu() {
       <nav
         ref={ref}
         className={cx(
-          `cover-screen bg-white z-10 shadow-2xl animate`,
+          `cover-screen bg-white z-10 shadow-2xl animate flex-center shadow-2xl shadow-blue-400`,
           visible ? "translate-x-0" : "translate-x-[120%]",
           visible ? "opacity-100" : "opacity-0"
         )}
       >
-        <ul className="flex flex-col text-center mt-20 w-[80vw] ">
+        <ul className="flex flex-col text-center mt-20 w-[80vw]">
           {links.map((link, index) => (
             <li key={index} className="py-5 text-2xl">
-              <Link href={link.url}>{link.text}</Link>
+              <Link href={link.url} className="text-dark uppercase font-bold">
+                {link.text}
+              </Link>
             </li>
           ))}
         </ul>
