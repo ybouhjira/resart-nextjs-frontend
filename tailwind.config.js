@@ -22,7 +22,7 @@ module.exports = {
         md: "16px",
         lg: "32px",
         xl: "64px",
-        '2xl': "128px",
+        "2xl": "128px",
       },
       screens: {
         max: "1164px",

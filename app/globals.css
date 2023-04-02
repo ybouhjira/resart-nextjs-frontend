@@ -5,3 +5,12 @@
 body {
   background: #eee;
 }
+
+
+.animate {
+  @apply transition-transform duration-500 ease-in-out;
+}
+
+.cover-screen {
+  @apply top-0 right-0 bottom-0 right-0 fixed;
+}
