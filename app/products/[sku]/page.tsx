@@ -4,6 +4,7 @@ import Button from "@/app/shared/Button/Button";
 import { PrismaClient } from "@prisma/client";
 import Text from "@/components/Text/Text";
 import ProductImage from "@/components/ProductImage/ProductImage";
+import { WhatsappButton } from "@/components/whatsappButton";
 
 interface Props {
   params: { sku: string };
@@ -29,6 +30,7 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
 
   const mainVariation = product.variations[0];
 
+  const phoneNumber = "212651123324";
   return (
     <main className="max-w-screen-max m-auto flex">
       <div className="flex flex-col md:flex-row gap-5">
@@ -61,12 +63,9 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
               </Button>
             </div>
             <div className="self-stretch">
-              <Button
-                className="block bg-transparent text-whatsapp border-whatsapp border-2 text-whatsapp"
-                href="/"
-              >
-                Order On Whatsapp
-              </Button>
+              <WhatsappButton
+                phoneNumber={process.env.NEXT_PUBLIC_WHATSAPP_NUMBER as string}
+              />
             </div>
           </div>
         </section>
