@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import * as styles from "./image.module.scss";
+import styles from "./image.module.scss";
 import cx from "classnames";
 interface Props {
   urls: string[];
