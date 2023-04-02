@@ -34,7 +34,7 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
       <div className="flex flex-col md:flex-row gap-5">
         <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
           <ProductImage
-            src={mainVariation.images[0]}
+            src={`product-photos/${mainVariation.images[0]}`}
             alt={product.name}
             width={675}
             height={675}

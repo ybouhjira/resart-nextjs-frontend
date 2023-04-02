@@ -1,17 +1,16 @@
-"use client";
 import React from "react";
 import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-
+import * as styles from "./image.module.scss";
+import cx from "classnames";
 interface Props {
   urls: string[];
 }
 
 export default function ProductCarousel({ urls }: Props) {
   return (
-    <Swiper slidesPerView="auto" loop>
-      {[...urls, ...urls].map((item, index) => (
-        <SwiperSlide key={index} className="max-w-[fit-content]">
+    <div className={cx(styles.perspective, "flex m-auto justify-center")}>
+      {urls.map((item, index) => (
+        <div key={index} className={cx(styles.image, "max-w-[fit-content] ")}>
           <div className="rounded overflow-hidden mx-md" key={item}>
             <Image
               key={item}
@@ -22,8 +21,8 @@ export default function ProductCarousel({ urls }: Props) {
               className="object-cover w-full"
             />
           </div>
-        </SwiperSlide>
+        </div>
       ))}
-    </Swiper>
+    </div>
   );
 }

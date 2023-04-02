@@ -1,7 +1,10 @@
+import { ReactNode } from "react";
+import CartIcon from "@/components/Icons/CartIcon";
+
 const links: {
   text?: string;
   url: string;
-  icon?: string;
+  icon?: ReactNode;
 }[] = [
   {
     text: "Products",
@@ -13,7 +16,8 @@ const links: {
   },
   {
     url: "/cart",
-    icon: "icons/cart.svg",
+    text: "Cart",
+    icon: <CartIcon />,
   },
 ];
 
