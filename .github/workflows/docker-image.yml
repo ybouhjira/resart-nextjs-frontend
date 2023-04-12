@@ -8,8 +8,18 @@ on:
 
 jobs:
 
-  cypress-test:
+  prettier-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses:
+            name: Prettier Check
+            uses:
+                docker://ghcr.io/peaceiris/actions-prettier@v3
+            with:
+                prettier_options: --check
 
+  cypress-test:
     runs-on: ubuntu-latest
     services:
       mysql:

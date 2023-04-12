@@ -11,11 +11,13 @@
     "prettier": "prettier --write ./app/**/*.{tsx,ts} ./cdk/**/*.ts",
     "prettier:watch": "prettier --watch ./app/**/*.{tsx,ts} ./cdk/**/*.ts",
     "docker-compose": "docker compose up -d",
-    "cypress": "cypress open",
+    "cypress": "CYPRESS_BASE_URL=http://localhost:3000/ cypress open",
     "cypress:ci": "CYPRESS_BASE_URL=http://localhost:80/ cypress run",
     "create-database": "prisma migrate dev && prisma db seed"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.299.0",
+    "@aws-sdk/signature-v4-crt": "^3.299.0",
     "@next/font": "13.1.6",
     "@prisma/client": "^4.11.0",
     "@svgr/webpack": "^6.5.1",
@@ -29,13 +31,16 @@
     "eslint-config-next": "13.1.6",
     "next": "13.1.6",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.4",
+    "prettier": "^2.8.7",
     "prisma": "^4.11.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-slick": "^0.29.0",
+    "sass": "^1.60.0",
     "server-only": "^0.0.1",
     "sharp": "^0.31.3",
-    "swiper": "^9.0.5",
+    "swiper": "^9.1.1",
+    "tailwind-merge": "^1.10.0",
     "tailwindcss": "^3.2.6",
     "typescript": "4.9.5"
   },
@@ -43,6 +48,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "devDependencies": {
+    "@types/react-slick": "^0.23.10",
     "cypress": "^12.7.0"
   }
 }

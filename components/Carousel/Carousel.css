@@ -1,0 +1,9 @@
+.swiper-wrapper {
+  width: fit-content;
+  margin: auto;
+  transform: none;
+}
+.disabled-swiper {
+  margin: auto !important;
+  transform: none !important;
+}

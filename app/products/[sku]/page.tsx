@@ -1,9 +1,10 @@
 import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
 import Button from "@/app/shared/Button/Button";
-import ProductImage from "@/components/ProductImage/ProductImage";
-import { useGetProducts } from "@/app/products/useGetProducts";
 import { PrismaClient } from "@prisma/client";
+import Text from "@/components/Text/Text";
+import ProductImage from "@/components/ProductImage/ProductImage";
+import { WhatsappButton } from "@/components/whatsappButton";
 
 interface Props {
   params: { sku: string };
@@ -27,34 +28,45 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
 
   if (!product) notFound();
 
+  const mainVariation = product.variations[0];
+
+  const phoneNumber = "212651123324";
   return (
-    <main className="flex flex-col lg:flex-row w-full flex-wrap gap-[24px] px-5 py-10 lg:py-20 lg:px-10">
-      <div className="flex  flex-col lg:flex-row gap-x-10 gap-y-5">
-        <figure className="lg:w-full">
+    <main className="max-w-screen-max m-auto flex">
+      <div className="flex flex-col md:flex-row gap-5">
+        <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
           <ProductImage
-            src={product.variations[0].images[0]}
+            src={`product-photos/${mainVariation.images[0]}`}
             alt={product.name}
-            width={560}
-            height={560}
-            className="w-full"
+            width={675}
+            height={675}
+            className="h-full w-auto block object-cover"
           />
         </figure>
+        <section className="flex flex-col gap-5 md:basis-1/2">
+          <Text.H>{product.name}</Text.H>
+          <Text.P>{product.description}</Text.P>
 
-        <section>
-          <h2 className="text-3xl font-bold mb-5">{product.name}</h2>
+          <div className="flex flex-col gap-5 lg:flex-row justify-between items-center">
+            <div className="flex gap-5 items-center">
+              <Text.Price variant="main" className="text-3xl">
+                {mainVariation.currentPrice}
+              </Text.Price>
 
-          <main className="text-[24px] mb-10">{product.description}</main>
-
-          <div className="flex flex-col lg:flex-row justify-between items-center ">
-            <div className="flex gap-x-2.5">
-              <strong className="text-3xl text-red-500">
-                {product.variations[0].currentPrice}DH
-              </strong>
-              <strong className="text-3xl line-through">
-                {product.variations[0].referencePrice}DH
-              </strong>
+              <Text.Price variant="ref" className="text-2xl">
+                {mainVariation.referencePrice}
+              </Text.Price>
             </div>
-            <Button href="/">Add to cart</Button>
+            <div className="self-stretch">
+              <Button className="block" href="/">
+                Add to cart
+              </Button>
+            </div>
+            <div className="self-stretch">
+              <WhatsappButton
+                phoneNumber={process.env.NEXT_PUBLIC_WHATSAPP_NUMBER as string}
+              />
+            </div>
           </div>
         </section>
       </div>

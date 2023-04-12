@@ -1,22 +1,26 @@
 "use client";
-import { Swiper, SwiperSlide } from "swiper/react";
 import * as path from "path";
 import Image from "next/image";
 import { testimonials } from "@/app/data/testimonials";
-import { Navigation } from "swiper";
+import Carousel from "@/components/Carousel/Carousel";
+import StarIcon from "@/components/Icons/Star";
 
 export default function TestimonialSlideShow() {
   return (
-    <Swiper
-      slidesPerView={1}
-      navigation={true}
-      modules={[Navigation]}
-      className="max-md:mx-[-20px]"
-    >
+    <Carousel>
       {testimonials.map((testimonial) => (
-        <SwiperSlide key={testimonial.id}>
-          <article className="m-auto flex flex-col md:flex-row gap-5 w-[fit-content] max-md:px-5 md:items-start">
-            <figure className="rounded-full block overflow-hidden relative w-[120px] h-[120px] max-md:m-auto">
+        <article
+          key={testimonial.id}
+          className={`flex-col 
+              max-w-[90vw] p-lg m-lg
+              md:max-w-[380px] md:p-lg 
+              shadow-lg select-none
+              gap-5 flex
+              pointer-events-none select-none
+          `}
+        >
+          <div className="flex items-center gap-md">
+            <figure className="rounded-full overflow-hidden relative w-[80px] h-[80px]">
               <Image
                 src={path.join("/", testimonial.photo)}
                 alt="Testimonial author photo"
@@ -24,13 +28,20 @@ export default function TestimonialSlideShow() {
                 fill
               />
             </figure>
-            <article className="max-w-[500px]">
-              {testimonial.content}
-              <figcaption>&#8212; {testimonial.name}</figcaption>
-            </article>
-          </article>
-        </SwiperSlide>
+            <div className="name">{testimonial.name}</div>
+          </div>
+          <div className="overflow-ellipsis overflow-y-hidden text-left">
+            {testimonial.content}
+          </div>
+          <div className="product-review flex justify-end">
+            <StarIcon fill />
+            <StarIcon fill />
+            <StarIcon fill />
+            <StarIcon fill />
+            <StarIcon />
+          </div>
+        </article>
       ))}
-    </Swiper>
+    </Carousel>
   );
 }

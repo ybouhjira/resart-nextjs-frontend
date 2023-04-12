@@ -1,34 +1,36 @@
-import styles from "./ProductCard.module.css";
-import cx from 'classnames';
 import Link from "next/link";
 import Product from "@resart/types/Product";
 import ProductImage from "@/components/ProductImage/ProductImage";
+import Text from "@/components/Text/Text";
 
 interface Props {
-    product: Product
+  product: Product;
 }
 
-const ProductCard = ({product}: Props) => {
-    return (
-        <Link href={`products/${product.sku}`}
-              className="block w-[274px] border border-gray-300 text-gray-800 shadow-gray-500 shadow-sm bg-white"
-              data-testid="ProductCard">
-            <div className="relative w-full">
-                <ProductImage
-                    src={`${product.variations[0].images[0]}`}
-                    alt={product.name}
-                    width={274}
-                    height={274}
-                    className="border-4 border-white"
-                />
-            </div>
-            <div className="p-2">
-                <div className="text-[24px] font-bold">{product.name}</div>
-                <span className="line-through">{product.variations[0].referencePrice} DH</span>
-                <strong className="ml-2 text-[#d32f2f] text-[18px] font-bold">{product.variations[0].currentPrice} DH</strong>
-            </div>
-        </Link>
-    );
+const ProductCard = ({ product }: Props) => {
+  const mainVariation = product.variations[0];
+  return (
+    <Link
+      href={`products/${product.sku}`}
+      className="block w-full"
+      data-testid="ProductCard"
+    >
+      <figure className="relative w-full rounded overflow-hidden">
+        <ProductImage
+          src={`product-photos/${mainVariation.images[0]}`}
+          alt={product.name}
+          width={274}
+          height={274}
+          className="object-cover w-full"
+        />
+      </figure>
+      <div className="p-2">
+        <div className="text-2xl font-[500] font-bold">{product.name}</div>
+        <Text.Price variant="ref">{mainVariation.referencePrice}</Text.Price>
+        <Text.Price>{mainVariation.currentPrice}</Text.Price>
+      </div>
+    </Link>
+  );
 };
 
 export default ProductCard;
