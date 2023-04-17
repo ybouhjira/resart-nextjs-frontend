@@ -1,4 +1,4 @@
-import { useGetProductBySku } from "@/app/products/[sku]/data/useGetProductBySku";
+import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
 import Button from "@/app/shared/Button/Button";
 import { PrismaClient } from "@prisma/client";

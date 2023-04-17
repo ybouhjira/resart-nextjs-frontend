@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import Product from "@/types/Product";
-import { mapProduct } from "@/app/products/useGetProducts";
+import { mapProduct } from "@/app/(main)/products/useGetProducts";
 
 ("server-only");
 

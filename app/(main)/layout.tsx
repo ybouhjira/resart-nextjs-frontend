@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../globals.css";
 import { Heebo } from "@next/font/google";
 import Header from "@/app/components/Header/Header";
 import { Footer } from "@/app/components/Footer/Footer";

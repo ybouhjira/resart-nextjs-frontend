@@ -1,5 +1,5 @@
 import ProductCard from "@/components/ProductCard/ProductCard";
-import { useGetProducts } from "@/app/products/useGetProducts";
+import { useGetProducts } from "@/app/(main)/products/useGetProducts";
 
 export default async function Home() {
   const products = await useGetProducts();
