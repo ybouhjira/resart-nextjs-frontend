@@ -11,8 +11,8 @@ export default function BurgerMenuIcon({ color, className, showX }: Props) {
       <path
         d="M4 6L20 6"
         stroke={color || "#000000"}
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
         className={cx(
           showX && "translate-y-[6px] -rotate-45",
           "animate origin-center fill-box"
@@ -22,16 +22,16 @@ export default function BurgerMenuIcon({ color, className, showX }: Props) {
       <path
         d="M4 12L20 12"
         stroke={color || "#000000"}
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
         className={cx(showX && "scale-0")}
       />
 
       <path
         d="M4 18L20 18"
         stroke={color || "#000000"}
-        stroke-width="2"
-        stroke-linecap="round"
+        strokeWidth="2"
+        strokeLinecap="round"
         className={cx(
           showX && "translate-y-[-6px] rotate-45",
           "animate origin-center fill-box"
