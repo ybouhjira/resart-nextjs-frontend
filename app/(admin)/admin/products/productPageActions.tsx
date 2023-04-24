@@ -14,7 +14,7 @@ export function ProductPageActions() {
 
   return (
     <>
-      <Modal title="Create product">
+      <Modal title="Create product" open={open} onClose={() => setOpen(false)}>
         <CreateProductModalContent />;
       </Modal>
       <div className="block justify-between items-center p-4 mx-4 mt-4 mb-6 bg-white rounded-2xl shadow-xl shadow-gray-200 lg:p-5 sm:flex">

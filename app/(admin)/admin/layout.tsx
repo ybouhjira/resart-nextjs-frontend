@@ -59,7 +59,7 @@ export default async function RootLayout({
               </ul>
             </div>
           </aside>
-          <div className="p-4 sm:ml-64 bg-gray-200 h-full">{children}</div>
+          <div className="sm:ml-64 bg-gray-200 h-full">{children}</div>
         </main>
       </body>
     </html>
