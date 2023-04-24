@@ -5,8 +5,6 @@ interface Product {
   name: string;
   variations: Variation[];
   description: string;
-  currentPrice: number;
-  referencePrice: number;
 }
 
 export default Product;
