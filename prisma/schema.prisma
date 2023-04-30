@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,7 +17,7 @@ model Product {
   name      String   @unique
 
   variations  Variation[]
-  description String      @db.LongText
+  description String      
 }
 
 model Variation {
