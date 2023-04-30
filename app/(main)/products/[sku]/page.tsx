@@ -10,19 +10,6 @@ interface Props {
   params: { sku: string };
 }
 
-export async function getStaticPaths() {
-  const prisma = new PrismaClient();
-
-  const products = await prisma.product.findMany({
-    select: { sku: true },
-  });
-
-  return {
-    paths: products.map((p) => ({ params: { sku: p.sku } })),
-    fallback: false,
-  };
-}
-
 const ProductDetailsPage = async ({ params: { sku } }: Props) => {
   const product = await useGetProductBySku(sku);
 
@@ -30,7 +17,7 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
 
   const mainVariation = product.variations[0];
 
-  const phoneNumber = "212651123324";
+  const phoneNumber = "2121234343";
   return (
     <main className="max-w-screen-max m-auto flex">
       <div className="flex flex-col md:flex-row gap-5">
