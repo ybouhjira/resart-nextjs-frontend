@@ -15,18 +15,21 @@ import BurgerMenuIcon from "@/components/Icons/BurgerMenuIcon";
 import useColors from "@/utils/useColors";
 
 const useClickOutside = (ref: RefObject<HTMLElement>, callback: () => void) => {
-  const handleClickOutside = (event: any) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      callback();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: any) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        callback();
+      }
+    },
+    [callback, ref]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref, callback]);
+  }, [ref, handleClickOutside]);
 };
 
 export default function BurgerMenu() {
