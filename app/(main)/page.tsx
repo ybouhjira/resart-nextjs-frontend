@@ -7,7 +7,7 @@ async function getHomeCarouselImagesFromS3(): Promise<string[]> {
   const region = process.env.AWS_REGION;
   console.log("AWS_REGION", region);
   const s3 = new S3Client({
-    region: region,
+    region: "eu-west-3",
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
