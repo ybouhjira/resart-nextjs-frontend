@@ -8,6 +8,10 @@ async function getHomeCarouselImagesFromS3(): Promise<string[]> {
   console.log("AWS_REGION", region);
   const s3 = new S3Client({
     region: region,
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+    },
   });
 
   const { Contents } = await s3.send(
