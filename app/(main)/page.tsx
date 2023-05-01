@@ -5,6 +5,7 @@ import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import process from "process";
 
 async function getHomeCarouselImagesFromS3(): Promise<string[]> {
+  console.log("AWS_REGION", process.env.AWS_REGION);
   const s3 = new S3Client({ region: process.env.AWS_REGION });
 
   const { Contents } = await s3.send(
