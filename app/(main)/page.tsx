@@ -3,7 +3,11 @@ import AboutSection from "@/app/components/AboutSection/AboutSection";
 import TestimonialsSection from "@/app/components/TestimonialsSection/TestimonialsSection";
 import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import process from "process";
+import AWS from "aws-sdk";
 
+AWS.config.update({
+  region: process.env.AWS_REGION,
+});
 async function getHomeCarouselImagesFromS3(): Promise<string[]> {
   console.log("AWS_REGION", process.env.AWS_REGION);
   const s3 = new S3Client({ region: process.env.AWS_REGION });
