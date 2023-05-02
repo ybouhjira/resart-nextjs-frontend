@@ -15,6 +15,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${font.className} h-full`}>
       <head>
+        <title>Resart</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1"
