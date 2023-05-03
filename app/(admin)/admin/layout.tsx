@@ -1,6 +1,6 @@
 import "@/app/globals.css";
 import { Heebo } from "@next/font/google";
-import AdminSideNavigation from "@/app/(admin)/admin/AdminSideNavigation";
+import AdminSideNavigation from "@/app/(admin)/admin/AdminSideNavigation/AdminSideNavigation";
 import Providers from "@/app/(admin)/admin/providers";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
