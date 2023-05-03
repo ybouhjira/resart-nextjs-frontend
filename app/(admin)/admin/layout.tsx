@@ -2,6 +2,8 @@ import "@/app/globals.css";
 import { Heebo } from "@next/font/google";
 import AdminSideNavigation from "@/app/(admin)/admin/AdminSideNavigation";
 import Providers from "@/app/(admin)/admin/providers";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
 
 const font = Heebo({ subsets: ["latin"] });
 
@@ -10,6 +12,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
+
+  if (!session) {
+    redirect("/login");
+  }
+
   return (
     <html lang="en" className={`${font.className} h-full`}>
       <head>
