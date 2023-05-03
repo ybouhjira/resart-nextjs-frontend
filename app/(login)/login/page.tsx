@@ -19,7 +19,17 @@ export default function AdminLoginPage(): ReactElement {
     );
 
   if (session) {
-    return <div>You are already logged in</div>;
+    return (
+      <div>
+        You are already logged in as {session.user?.name}
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => router.push("/admin")}
+        >
+          Go to admin
+        </button>
+      </div>
+    );
   }
 
   const tailWindButtonClasses =
