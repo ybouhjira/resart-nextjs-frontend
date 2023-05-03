@@ -1,11 +1,11 @@
 import "@/app/globals.css";
-import { Heebo } from "@next/font/google";
-import AdminSideNavigation from "@/app/(admin)/admin/AdminSideNavigation";
+
 import Providers from "@/app/(admin)/admin/providers";
+import { Heebo } from "@next/font/google";
 
 const font = Heebo({ subsets: ["latin"] });
 
-export default async function RootLayout({
+export default function AdminLoginLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -21,10 +21,7 @@ export default async function RootLayout({
       </head>
       <body className="flex flex-col h-full bg-white overflow-x-hidden">
         <main className="grow-[5]">
-          <AdminSideNavigation />
-          <div className="p-4 sm:ml-64">
-            <Providers>{children}</Providers>
-          </div>
+          <Providers>{children}</Providers>
         </main>
       </body>
     </html>
