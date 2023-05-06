@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import "@/app/(admin)/admin/styles.css";
 import { Heebo } from "@next/font/google";
 import AdminSideNavigation from "@/app/(admin)/admin/AdminSideNavigation/AdminSideNavigation";
 import Providers from "@/app/(admin)/admin/providers";

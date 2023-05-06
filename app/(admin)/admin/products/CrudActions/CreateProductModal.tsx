@@ -1,20 +1,19 @@
 import { Button, Modal } from "flowbite-react";
 import { useForm } from "react-hook-form";
 import { FormField } from "@/app/(admin)/admin/components/FormField";
+import PhotoUploadInput from "@/app/(admin)/admin/components/PhotoUploadInput";
 
 interface Props {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-let required = { value: true, message: "required" };
-let length = { value: 6, message: "length should be 6" };
-let fixedLength = (length: number) => ({
+const required = { value: true, message: "required" };
+const fixedLength = (length: number) => ({
   minLength: { value: length, message: `length should be ${length}` },
   maxLength: { value: length, message: `length should be ${length}` },
 });
-const inputClasses =
-  "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500";
+
 export default function CreateProductModal({ open, setOpen }: Props) {
   const {
     register,
@@ -24,6 +23,20 @@ export default function CreateProductModal({ open, setOpen }: Props) {
   } = useForm();
 
   const onSubmit = (data: any) => console.log(data);
+
+  const registers = {
+    sku: register("sku", {
+      required,
+      ...fixedLength(6),
+      pattern: /^01[A-Za-z0-9]+$/i,
+    }),
+    stock: register("stock", { required }),
+    name: register("name", { required }),
+    referencePrice: register("referencePrice", { required }),
+    currentPrice: register("currentPrice", { required }),
+    description: register("description", { required }),
+  };
+
   return (
     <>
       <Modal dismissible={true} show={open} onClose={() => setOpen(false)}>
@@ -36,11 +49,7 @@ export default function CreateProductModal({ open, setOpen }: Props) {
                   <input
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder={"01...."}
-                    {...register("sku", {
-                      required,
-                      ...fixedLength(6),
-                      pattern: /^01[A-Za-z0-9]+$/i,
-                    })}
+                    {...registers.sku}
                   />
                   {errors.sku && (
                     <span className="text-red-500 text-xs">
@@ -48,44 +57,42 @@ export default function CreateProductModal({ open, setOpen }: Props) {
                     </span>
                   )}
                 </FormField>
-
                 <FormField colSpan={1} label="stock">
-                  <input {...register("stock", {})} className={inputClasses} />
+                  <input
+                    {...registers.stock}
+                    className="input"
+                    placeholder="10"
+                  />
                 </FormField>
-                <FormField label="name" {...register("name")}>
+                <FormField label="name">
                   <input
                     {...register("name", {})}
-                    className={inputClasses}
+                    className="input"
                     placeholder="Nature green necklace..."
                   />
                 </FormField>
-                <FormField
-                  colSpan={1}
-                  label={"Reference price"}
-                  {...register("referencePrice")}
-                >
+                <FormField label="Photos">
+                  <PhotoUploadInput />
+                </FormField>
+                <FormField colSpan={1} label={"Reference price"}>
                   <input
-                    {...register("referencePrice", {})}
-                    className={inputClasses}
+                    {...registers.referencePrice}
+                    className="input"
                     placeholder="100"
                   />
                 </FormField>
 
-                <FormField
-                  colSpan={1}
-                  label="Current price"
-                  {...register("currentPrice")}
-                >
+                <FormField colSpan={1} label="Current price">
                   <input
                     placeholder="50"
-                    className={inputClasses}
+                    className="input"
                     {...register("currentPrice", {})}
                   />
                 </FormField>
-                <FormField label="description" {...register("description")}>
+                <FormField label="description">
                   <textarea
-                    {...register("description", {})}
-                    className={inputClasses}
+                    {...registers.description}
+                    className="input"
                     placeholder="Celebrate the beauty of love with the Eternal Embrace Couples' Necklace Set, featuring two stunning handcrafted pieces that perfectly complement each other. Made with a harmonious blend of epoxy resin and Thuya wood, these necklaces showcase a unique fusion of modern design and natural elegance."
                   />
                 </FormField>
