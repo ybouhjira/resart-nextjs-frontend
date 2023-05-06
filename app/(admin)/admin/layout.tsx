@@ -30,7 +30,7 @@ export default async function RootLayout({
       <body className="flex flex-col h-full bg-white overflow-x-hidden">
         <main className="grow-[5]">
           <AdminSideNavigation />
-          <div className="p-4 sm:ml-64">
+          <div className="p-4 sm:ml-64 bg-gray-50 dark:bg-gray-900 h-full">
             <Providers>{children}</Providers>
           </div>
         </main>
