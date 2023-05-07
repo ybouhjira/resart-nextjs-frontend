@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import { colors } from "@/app/data/product";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import * as process from "process";
+import { uuid } from "flowbite-react/lib/esm/helpers/uuid";
 
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -45,6 +48,31 @@ export async function POST(request: NextRequest) {
       stock: Number(bodyAsObject.stock),
     });
 
+    const s3 = new S3Client({
+      region: process.env.AWS_REGION as string,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+      },
+    });
+
+    // put photos in s3 bucket
+    const photoKeys = await Promise.all(
+      validated.photos.map(async (photo: File) => {
+        const extension = photo.type.split("/")[1];
+        const id = uuid();
+        const key = `${validated.sku}/${id}.${extension}`;
+
+        const command = new PutObjectCommand({
+          Body: Buffer.from(await photo.arrayBuffer()),
+          Bucket: process.env.S3_PHOTOS_BUCKET as string,
+          Key: `product-photos/${key}`,
+        });
+        await s3.send(command);
+        return key;
+      })
+    );
+
     await prisma.product.create({
       data: {
         sku: validated.sku,
@@ -56,6 +84,9 @@ export async function POST(request: NextRequest) {
             referencePrice: validated.referencePrice,
             currentPrice: validated.currentPrice,
             color: validated.color,
+            images: {
+              create: photoKeys.map((path) => ({ path })),
+            },
           },
         },
       },

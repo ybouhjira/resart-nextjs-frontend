@@ -1,10 +1,10 @@
 import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
 import Button from "@/app/shared/Button/Button";
-import { PrismaClient } from "@prisma/client";
 import Text from "@/components/Text/Text";
-import ProductImage from "@/components/ProductImage/ProductImage";
 import { WhatsappButton } from "@/components/whatsappButton";
+import Image from "next/image";
+import { getMainPhoto } from "@/utils/data/product";
 
 interface Props {
   params: { sku: string };
@@ -22,8 +22,8 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
     <main className="max-w-screen-max m-auto flex">
       <div className="flex flex-col md:flex-row gap-5">
         <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
-          <ProductImage
-            src={`product-photos/${mainVariation.images[0]}`}
+          <Image
+            src={getMainPhoto(product) as string}
             alt={product.name}
             width={675}
             height={675}

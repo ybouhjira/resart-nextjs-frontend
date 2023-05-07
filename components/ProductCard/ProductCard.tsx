@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Product from "@resart/types/Product";
-import ProductImage from "@/components/ProductImage/ProductImage";
+import Image from "next/image";
 import Text from "@/components/Text/Text";
+import { getMainPhoto } from "@/utils/data/product";
 
 interface Props {
-  product: Product;
+  product: any;
 }
 
 const ProductCard = ({ product }: Props) => {
@@ -16,8 +16,8 @@ const ProductCard = ({ product }: Props) => {
       data-testid="ProductCard"
     >
       <figure className="relative w-full rounded overflow-hidden">
-        <ProductImage
-          src={`product-photos/${mainVariation.images[0]}`}
+        <Image
+          src={getMainPhoto(product) as string}
           alt={product.name}
           width={274}
           height={274}
