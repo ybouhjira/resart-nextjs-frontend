@@ -14,7 +14,7 @@ body {
 }
 
 .cover-screen {
-  @apply top-0 right-0 bottom-0 right-0 fixed;
+  @apply top-0 right-0 bottom-0 fixed;
 }
 
 .fill-box {
