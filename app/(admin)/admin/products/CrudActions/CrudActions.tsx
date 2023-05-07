@@ -1,5 +1,5 @@
 "use client";
-import CreateProductModal from "@/app/(admin)/admin/products/CrudActions/CreateProductModal";
+import CreateProductModal from "@/app/(admin)/admin/products/CrudActions/createProductModal/CreateProductModal";
 import { useState } from "react";
 import { AddIcon } from "@/components/Icons/AddIcon";
 

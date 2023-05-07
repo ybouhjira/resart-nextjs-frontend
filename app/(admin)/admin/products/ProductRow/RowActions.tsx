@@ -1,16 +1,38 @@
+"use client";
+
 import { TrashIcon } from "@/components/Icons/TrashIcon";
 import { EditIcon } from "@/components/Icons/EditIcon";
+import { useMutation } from "react-query";
+import { useRouter } from "next/navigation";
 
 interface Props {
-  onDeleteClick?: () => void;
-  onEditClick?: () => void;
+  sku: string;
 }
 
-export default function RowActions({ onDeleteClick, onEditClick }: Props) {
+export default function RowActions({ sku }: Props) {
+  const router = useRouter();
+
+  const { mutate, isLoading: deleteLoading } = useMutation(() => {
+    return fetch(`/api/products/${sku}`, {
+      method: "DELETE",
+    });
+  });
+
+  const onDeleteClick = () => {
+    const confirmed = confirm(`Are you sure you want to delete ${sku}?`);
+    if (confirmed) {
+      mutate(undefined, {
+        onSuccess: () => {
+          router.refresh();
+        },
+      });
+    }
+  };
+
   return (
     <div className="flex items-center space-x-2 p-2">
       <button
-        onClick={onEditClick}
+        disabled={deleteLoading}
         type="button"
         data-drawer-target="drawer-update-product"
         data-drawer-show="drawer-update-product"
@@ -21,14 +43,21 @@ export default function RowActions({ onDeleteClick, onEditClick }: Props) {
         Edit
       </button>
       <button
+        disabled={deleteLoading}
         onClick={onDeleteClick}
         type="button"
         data-modal-target="delete-modal"
         data-modal-toggle="delete-modal"
         className="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
       >
-        <TrashIcon />
-        Delete
+        {deleteLoading ? (
+          <>Deleting...</>
+        ) : (
+          <>
+            <TrashIcon />
+            Delete
+          </>
+        )}
       </button>
     </div>
   );

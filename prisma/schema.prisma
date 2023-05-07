@@ -26,7 +26,7 @@ model Variation {
   updateAt  DateTime @updatedAt
 
   id             String         @id @default(uuid())
-  product        Product        @relation(fields: [productSku], references: [sku])
+  product        Product        @relation(fields: [productSku], references: [sku], onDelete: Cascade, onUpdate: Cascade)
   productSku     String
   color          String
   images         ProductPhoto[]
@@ -40,6 +40,6 @@ model ProductPhoto {
   updateAt  DateTime @updatedAt
   id          Int        @id @default(autoincrement())
   path        String
-  Variation   Variation? @relation(fields: [variationId], references: [id])
+  Variation   Variation? @relation(fields: [variationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   variationId String?
 }

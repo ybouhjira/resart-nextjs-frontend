@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { FormField } from "@/app/(admin)/admin/components/FormField";
 import PhotoUploadInput from "@/app/(admin)/admin/components/PhotoUploadInput";
 import { useMutation } from "react-query";
-import { Product } from "@prisma/client";
 import { twMerge } from "tailwind-merge";
 import ColorPicker from "@/app/(admin)/admin/products/CrudActions/createProductModal/ColorPicker";
 import { colors } from "@/app/data/product";
+import { useRouter } from "next/navigation";
 
 interface Props {
   open: boolean;
@@ -56,7 +56,8 @@ export default function CreateProductModal({ open, setOpen }: Props) {
     watch,
     formState: { errors },
   } = useForm();
-  const { mutate } = useMutation(createProduct);
+  const { mutate, isLoading } = useMutation(createProduct);
+  const router = useRouter();
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -64,6 +65,8 @@ export default function CreateProductModal({ open, setOpen }: Props) {
     mutate(data, {
       onSuccess: () => {
         console.log("Product created successfully");
+        setOpen(false);
+        router.refresh();
       },
       onError: (error) => {
         console.error("Error creating product:", error);
@@ -105,74 +108,81 @@ export default function CreateProductModal({ open, setOpen }: Props) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Modal.Header>Create new product</Modal.Header>
           <Modal.Body>
-            <div className="space-y-6">
-              <div className="grid gap-4 mb-4 grid-cols-1">
-                <FormField label="name" colSpan={2}>
-                  <input
-                    {...registers.name}
-                    className="input"
-                    placeholder="Nature green necklace..."
-                  />
-                  {getErrors("name")}
-                </FormField>
-                <FormField label="Photos" colSpan={2}>
-                  <PhotoUploadInput {...registers.photos} />
-                  {getErrors("photos")}
-                </FormField>
+            {isLoading && <div>Creating product...</div>}
+            {!isLoading && (
+              <div className="space-y-6">
+                <div className="grid gap-4 mb-4 grid-cols-2">
+                  <div className="col-span-2">
+                    <FormField label="name" colSpan={2}>
+                      <input
+                        {...registers.name}
+                        className="input"
+                        placeholder="Nature green necklace..."
+                      />
+                      {getErrors("name")}
+                    </FormField>
+                  </div>
+                  <div className="col-span-2">
+                    <FormField label="Photos" colSpan={2}>
+                      <PhotoUploadInput {...registers.photos} />
+                      {getErrors("photos")}
+                    </FormField>
+                  </div>
 
-                <FormField label="Color">
-                  <ColorPicker {...registers.color} watch={watch} />
-                </FormField>
+                  <FormField label="Color" colSpan={2}>
+                    <ColorPicker {...registers.color} watch={watch} />
+                  </FormField>
 
-                <FormField colSpan={1} label="sku">
-                  <input
-                    className="input"
-                    placeholder={"01...."}
-                    {...registers.sku}
-                  />
-                  {getErrors("sku")}
-                </FormField>
-                <FormField colSpan={1} label="stock">
-                  <input
-                    {...registers.stock}
-                    className="input"
-                    placeholder="10"
-                  />
-                  {getErrors("stock")}
-                </FormField>
+                  <FormField colSpan={1} label="sku">
+                    <input
+                      className="input"
+                      placeholder={"01...."}
+                      {...registers.sku}
+                    />
+                    {getErrors("sku")}
+                  </FormField>
+                  <FormField colSpan={1} label="stock">
+                    <input
+                      {...registers.stock}
+                      className="input"
+                      placeholder="10"
+                    />
+                    {getErrors("stock")}
+                  </FormField>
 
-                <FormField colSpan={1} label={"Reference price"}>
-                  <input
-                    type="number"
-                    {...registers.referencePrice}
-                    className={twMerge("input rounded-r-none rounded-l-md")}
-                    placeholder="100"
-                  />
-                  {getErrors("referencePrice")}
-                </FormField>
+                  <FormField colSpan={1} label={"Reference price"}>
+                    <input
+                      type="number"
+                      {...registers.referencePrice}
+                      className={twMerge("input rounded-r-none rounded-l-md")}
+                      placeholder="100"
+                    />
+                    {getErrors("referencePrice")}
+                  </FormField>
 
-                <FormField colSpan={1} label="Current price">
-                  <input
-                    type="number"
-                    placeholder="50"
-                    className="input rounded-r-none rounded-l-md"
-                    {...registers.currentPrice}
-                  />
-                  {getErrors("currentPrice")}
-                </FormField>
-                <FormField label="description">
-                  {getErrors("description")}
-                  <textarea
-                    {...registers.description}
-                    className="input"
-                    placeholder="This is a beautiful necklace..."
-                  />
-                </FormField>
+                  <FormField colSpan={1} label="Current price">
+                    <input
+                      type="number"
+                      placeholder="50"
+                      className="input rounded-r-none rounded-l-md"
+                      {...registers.currentPrice}
+                    />
+                    {getErrors("currentPrice")}
+                  </FormField>
+                  <FormField label="description">
+                    {getErrors("description")}
+                    <textarea
+                      {...registers.description}
+                      className="input"
+                      placeholder="This is a beautiful necklace..."
+                    />
+                  </FormField>
+                </div>
               </div>
-            </div>
+            )}
           </Modal.Body>
           <Modal.Footer>
-            <Button color="gray" type="submit">
+            <Button color="gray" type="submit" disabled={isLoading}>
               OK
             </Button>
           </Modal.Footer>

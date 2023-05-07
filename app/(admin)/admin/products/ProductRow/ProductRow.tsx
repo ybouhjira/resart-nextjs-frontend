@@ -60,7 +60,7 @@ export default function ProductRow({
         {stock}
       </td>
       <td className="w-0">
-        <RowActions onDeleteClick={onDeleteClick} onEditClick={onEditClick} />
+        <RowActions sku={sku} />
       </td>
     </tr>
   );
