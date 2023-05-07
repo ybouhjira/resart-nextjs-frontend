@@ -1,9 +1,12 @@
 import { useGetProducts } from "@/app/(main)/products/useGetProducts";
-import Image from "next/image";
-import { getMainPhoto } from "@/utils/data/product";
+import {
+  getCurrentPrice,
+  getMainPhoto,
+  getReferencePrice,
+  getStock,
+} from "@/utils/data/product";
 import { CrudActions } from "@/app/(admin)/admin/products/CrudActions/CrudActions";
-import { ProductColumns } from "@/app/(admin)/admin/products/ProductColumns";
-import ProductImage from "@/components/ProductImage/ProductImage";
+import ProductRow from "@/app/(admin)/admin/products/ProductRow/ProductRow";
 
 const AdminProductsPage = async () => {
   const products = await useGetProducts();
@@ -78,11 +81,28 @@ const AdminProductsPage = async () => {
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
-                    {Object.entries(ProductColumns).map(([key, value]) => (
-                      <th key={key} scope="col" className="p-4">
-                        {value}
-                      </th>
-                    ))}
+                    <th scope="col" className="p-4">
+                      SKU
+                    </th>
+                    <th scope="col" className="p-4">
+                      Photo
+                    </th>
+                    <th scope="col" className="p-4">
+                      Name
+                    </th>
+                    <th
+                      scope="col"
+                      className="p-4 text-right whitespace-nowrap"
+                    >
+                      Ref Price
+                    </th>
+                    <th scope="col" className="p-4 text-right">
+                      Price
+                    </th>
+                    <th scope="col" className="p-4 text-right">
+                      Stock
+                    </th>
+                    <th scope="col" className="p-4" />
                   </tr>
                 </thead>
                 <tbody>
@@ -94,45 +114,15 @@ const AdminProductsPage = async () => {
                     </tr>
                   )}
                   {products.map((product) => (
-                    <tr
+                    <ProductRow
+                      sku={product.sku}
                       key={product.sku}
-                      className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700"
-                    >
-                      <td className="p-4 w-4">{product.sku}</td>
-                      <th
-                        scope="row"
-                        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white ps-4"
-                      >
-                        <div className="flex items-center">
-                          <Image
-                            width={64}
-                            height={64}
-                            className="bg-cover"
-                            src={getMainPhoto(product) as string}
-                            alt="Necklace image"
-                          />
-                          {product.name}
-                        </div>
-                      </th>
-
-                      <td className="px-4 py-3">
-                        <span className="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">
-                          Desktop PC
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div className="flex items-center">
-                          <div className="h-4 w-4 rounded-full inline-block mr-2 bg-red-700" />
-                          95
-                        </div>
-                      </td>
-                      <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        1.47
-                      </td>
-                      <td className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        0.47
-                      </td>
-                    </tr>
+                      photoURL={getMainPhoto(product)}
+                      name={product.name}
+                      stock={getStock(product)}
+                      currentPrice={getCurrentPrice(product)}
+                      referencePrice={getReferencePrice(product)}
+                    />
                   ))}
                 </tbody>
               </table>
