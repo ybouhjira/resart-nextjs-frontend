@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Product {
-  sku       String   @id @default(uuid())
+  sku       String   @id
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
   name      String   @unique
@@ -21,6 +21,10 @@ model Product {
 }
 
 model Variation {
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
   id             String         @id @default(uuid())
   product        Product        @relation(fields: [productSku], references: [sku])
   productSku     String
@@ -28,9 +32,12 @@ model Variation {
   images         ProductPhoto[]
   referencePrice Float
   currentPrice   Float
+  stock          Int
 }
 
 model ProductPhoto {
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
   id          Int        @id @default(autoincrement())
   path        String
   Variation   Variation? @relation(fields: [variationId], references: [id])

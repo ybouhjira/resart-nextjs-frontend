@@ -1,7 +1,18 @@
-import { ChangeEvent, memo, useState } from "react";
-import { file } from "@babel/types";
+import {
+  ChangeEvent,
+  ComponentProps,
+  forwardRef,
+  LegacyRef,
+  memo,
+  useState,
+} from "react";
+import Image from "next/image";
+import { UploadIcon } from "@/components/Icons/UploadIcon";
 
-const memoized = memo(function PhotoUploadInput() {
+const PhotoUploadInput = forwardRef(function PhotoUploadInputComponent(
+  props: ComponentProps<"input">,
+  ref: LegacyRef<HTMLInputElement>
+) {
   const [files, setFiles] = useState<File[]>([]);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -19,7 +30,7 @@ const memoized = memo(function PhotoUploadInput() {
     <div className="flex items-center justify-center w-full h-full">
       <label
         htmlFor="dropzone-file"
-        className="h-full flex flex-col items-center justify-center w-full h-64 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        className="h-full flex flex-col items-center justify-center w-full border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="h-full flex flex-col items-center justify-center p-0">
           {files.length > 0 ? (
@@ -27,14 +38,21 @@ const memoized = memo(function PhotoUploadInput() {
               <>
                 {[].map.call(files, (file: File, index) => {
                   return (
-                    <div className="relative m-4 w-[120px] h-[120px] overflow-visible">
+                    <div
+                      className="relative m-4 w-[120px] h-[120px] overflow-visible"
+                      key={file.name}
+                    >
                       <button
-                        onClick={() => removePhoto(index)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removePhoto(index);
+                        }}
                         className="cirlcular-close-button absolute -top-[12px] right-[-24px/2] z-10 w-[24px] flex justify-center items-center h-[24px] bg-dark text-white rounded-full"
                       >
                         x
                       </button>
-                      <img
+                      <Image
+                        fill
                         key={file.name}
                         className="w-full h-full object-cover"
                         src={URL.createObjectURL(file)}
@@ -47,21 +65,7 @@ const memoized = memo(function PhotoUploadInput() {
             </div>
           ) : (
             <>
-              <svg
-                aria-hidden="true"
-                className="w-10 h-10 mb-3 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                />
-              </svg>
+              <UploadIcon />
               <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">Click to upload</span> or drag
                 and drop
@@ -73,17 +77,21 @@ const memoized = memo(function PhotoUploadInput() {
           )}
         </div>
         <input
-          value={files}
           id="dropzone-file"
           type="file"
           className="hidden"
-          onChange={onChange}
           accept="image/*"
           multiple
+          {...props}
+          onChange={(e) => {
+            onChange(e);
+            props.onChange?.(e);
+          }}
+          ref={ref}
         />
       </label>
     </div>
   );
 });
 
-export default memoized;
+export default PhotoUploadInput;
