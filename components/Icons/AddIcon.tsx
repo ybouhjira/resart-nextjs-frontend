@@ -1,11 +1,12 @@
-export function AddIcon() {
+import IconProps from "@/components/Icons/IconProps";
+
+export default function AddIcon({ className }: IconProps) {
   return (
     <svg
-      className="h-3.5 w-3.5 mr-1.5 -ml-1"
       fill="currentColor"
       viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
+      className={className}
     >
       <path
         clipRule="evenodd"

@@ -1,3 +1,5 @@
+import { LoadingTableWithHeadline } from "@/app/(admin)/admin/components/LoadingTableWithHeadline";
+
 export default function Loading() {
-  return <div>Loading...</div>;
+  return <LoadingTableWithHeadline />;
 }
