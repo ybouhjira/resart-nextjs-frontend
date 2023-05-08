@@ -4,14 +4,17 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { useRouter } from "next/navigation";
 import { colors } from "@/app/data/product";
-import useFormField from "@/app/(admin)/admin/components/FormField";
+import FormFieldProvider, {
+  FormField,
+} from "@/app/(admin)/admin/components/FormField";
 import PhotoUploadInput from "@/app/(admin)/admin/components/PhotoUploadInput";
 import ColorPicker from "@/app/(admin)/admin/components/ColorPicker";
 import { twMerge } from "tailwind-merge";
 import { fixedLength, required } from "@/utils/form";
 import { createProduct } from "@/utils/api/product";
 import { Button } from "react-daisyui";
-import { memo, useMemo, useState } from "react";
+import { useState } from "react";
+import cx from "classnames";
 
 function getRegisters(register: any) {
   return {
@@ -36,16 +39,6 @@ function getRegisters(register: any) {
   } as const;
 }
 
-function TestComponent() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div>
-      {count} <Button onClick={() => setCount(count + 1)}>Click me</Button>{" "}
-    </div>
-  );
-}
-
 const labels = {
   sku: "SKU",
   color: "Color",
@@ -65,12 +58,12 @@ export default function CreateProductPage() {
     formState: { errors },
   } = useForm();
   const registers = getRegisters(register);
-  const { mutate, isLoading } = useMutation(createProduct);
   const router = useRouter();
 
-  const FormField = useFormField<keyof typeof registers>({ errors, labels });
+  const { mutate, isLoading } = useMutation(createProduct);
 
   const onSubmit = (data: any) => {
+    console.log("data", data);
     mutate(data, {
       onSuccess: () => {
         console.log("Product created successfully");
@@ -85,72 +78,69 @@ export default function CreateProductPage() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-4 text-2xl text-dark">Create a new product</div>
-      <div>
-        {isLoading && <div>Creating product...</div>}
-        {!isLoading && (
-          <div className="space-y-6">
-            <div className="grid gap-4 mb-4 grid-cols-2">
-              <FormField name="name">
-                <input
-                  {...registers.name}
-                  className="input"
-                  placeholder="Nature green necklace..."
-                />
-              </FormField>
-              {/*<FormField name="photos">
-
-              </FormField>*/}
-
+      <div className="space-y-6">
+        <div className="grid gap-4 mb-4 grid-cols-2">
+          <FormFieldProvider errors={errors} labels={labels}>
+            <FormField name="name">
+              <input
+                {...registers.name}
+                className="input"
+                placeholder="Nature green necklace..."
+              />
+            </FormField>
+            <FormField name="photos">
               <PhotoUploadInput {...registers.photos} />
-              <FormField name="color">
-                <ColorPicker {...registers.color} watch={watch} />
-              </FormField>
+            </FormField>
 
-              <FormField name={"sku"} colSpan={1}>
-                <input
-                  className="input"
-                  placeholder={"01...."}
-                  {...registers.sku}
-                />
-              </FormField>
-              <FormField name="stock" colSpan={1}>
-                <input
-                  {...registers.stock}
-                  className="input"
-                  placeholder="10"
-                />
-              </FormField>
+            <FormField name="color">
+              <ColorPicker {...registers.color} watch={watch} />
+            </FormField>
 
-              <FormField colSpan={1} name="referencePrice">
-                <input
-                  type="number"
-                  {...registers.referencePrice}
-                  className={twMerge("input rounded-r-none rounded-l-md")}
-                  placeholder="100"
-                />
-              </FormField>
+            <FormField name={"sku"} colSpan={1}>
+              <input
+                className="input"
+                placeholder={"01...."}
+                {...registers.sku}
+              />
+            </FormField>
+            <FormField name="stock" colSpan={1}>
+              <input {...registers.stock} className="input" placeholder="10" />
+            </FormField>
 
-              <FormField colSpan={1} name="currentPrice">
-                <input
-                  type="number"
-                  placeholder="50"
-                  className="input rounded-r-none rounded-l-md"
-                  {...registers.currentPrice}
-                />
-              </FormField>
-              <FormField name="description">
-                <textarea
-                  {...registers.description}
-                  className="input"
-                  placeholder="This is a beautiful necklace..."
-                />
-              </FormField>
-            </div>
-          </div>
-        )}
+            <FormField colSpan={1} name="referencePrice">
+              <input
+                type="number"
+                {...registers.referencePrice}
+                className={twMerge("input rounded-r-none rounded-l-md")}
+                placeholder="100"
+              />
+            </FormField>
+
+            <FormField colSpan={1} name="currentPrice">
+              <input
+                type="number"
+                placeholder="50"
+                className="input rounded-r-none rounded-l-md"
+                {...registers.currentPrice}
+              />
+            </FormField>
+            <FormField name="description">
+              <textarea
+                {...registers.description}
+                className="input"
+                placeholder="This is a beautiful necklace..."
+              />
+            </FormField>
+          </FormFieldProvider>
+        </div>
       </div>
       <div>
-        <Button className="btn btn-primary">OK</Button>
+        <Button
+          className={cx(`btn btn-primary`, { loading: isLoading })}
+          type="submit"
+        >
+          OK
+        </Button>
       </div>
     </form>
   );
