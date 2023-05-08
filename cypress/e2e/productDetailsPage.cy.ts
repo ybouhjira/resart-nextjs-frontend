@@ -1,10 +1,13 @@
-import ProductDetailsPage from "@/cypress/pages/ProductDetailsPage";
+import selectors from "../selectors";
 
-describe('Product details page', function () {
-    const page = new ProductDetailsPage('5523918c-d884-41ce-974a-d7c51ba0f72d')
-
-    it('shows the product image', function () {
-        page.visit()
-        page.image().should('be.visible')
-    });
+describe("Product details page", function () {
+  it("shows the product image", async function () {
+    await cy.visit("/products");
+    await cy.get(selectors.productCard).first().click();
+    await cy.get(selectors.productImage).should("be.visible");
+    await cy.get(selectors.productDescription).should("be.visible");
+    await cy.get(selectors.productReferencePrice).should("be.visible");
+    await cy.get(selectors.productCurrentPrice).should("be.visible");
+    await cy.get(selectors.whatsAppButton).should("be.visible");
+  });
 });

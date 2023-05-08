@@ -1,7 +1,5 @@
 import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
-import Button from "@/app/shared/Button/Button";
-import Text from "@/components/Text/Text";
 import { WhatsappButton } from "@/components/whatsappButton";
 import Image from "next/image";
 import { getMainPhoto } from "@/utils/data/product";
@@ -23,6 +21,7 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
       <div className="flex flex-col md:flex-row gap-5">
         <figure className="lg:w-full rounded overflow-hidden md:basis-1/2">
           <Image
+            data-testid="product-image"
             src={getMainPhoto(product) as string}
             alt={product.name}
             width={675}
@@ -31,26 +30,29 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
           />
         </figure>
         <section className="flex flex-col gap-5 md:basis-1/2">
-          <Text.H>{product.name}</Text.H>
-          <Text.P>{product.description}</Text.P>
+          <h2 className="heading" data-testid="product-name">
+            {product.name}
+          </h2>
+          <article data-testid="product-description">
+            {product.description}
+          </article>
 
           <div className="flex flex-col gap-5 lg:flex-row justify-between items-center">
             <div className="flex gap-5 items-center">
-              <Text.Price variant="main" className="text-3xl">
-                {mainVariation.currentPrice}
-              </Text.Price>
+              <span
+                className="text-3xl text-dark font-bold"
+                data-testid="product-current-price"
+              >
+                {mainVariation.currentPrice} DH
+              </span>
 
-              <Text.Price variant="ref" className="text-2xl">
-                {mainVariation.referencePrice}
-              </Text.Price>
-            </div>
-            <div className="self-stretch">
-              <Button className="block" href="/">
-                Add to cart
-              </Button>
+              <span className="text-2xl" data-testid="product-reference-price">
+                {mainVariation.referencePrice} DH
+              </span>
             </div>
             <div className="self-stretch">
               <WhatsappButton
+                data-testid="whatsapp-button"
                 phoneNumber={process.env.NEXT_PUBLIC_WHATSAPP_NUMBER as string}
               />
             </div>

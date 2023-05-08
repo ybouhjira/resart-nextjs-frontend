@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 
 interface Props extends ComponentProps<typeof Link> {}
 
-export default function Button({ className, children, href }: Props) {
+export default function Button({ className, children, href, ...props }: Props) {
   return (
     <Link
       href={href}
@@ -12,6 +12,7 @@ export default function Button({ className, children, href }: Props) {
         `bg-main text-white text-bold rounded-2 text-center text-dark font-bold py-2.5 px-10 shadow-lg shadow-dark/25 whitespace-nowrap`,
         className
       )}
+      {...props}
     >
       {children}
     </Link>

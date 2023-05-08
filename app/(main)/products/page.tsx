@@ -1,4 +1,4 @@
-import ProductCard from "@/components/ProductCard/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import { useGetProducts } from "@/app/(main)/products/useGetProducts";
 
 export default async function Home() {

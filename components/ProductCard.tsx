@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import Text from "@/components/Text/Text";
 import { getMainPhoto } from "@/utils/data/product";
 
 interface Props {
@@ -13,7 +12,7 @@ const ProductCard = ({ product }: Props) => {
     <Link
       href={`products/${product.sku}`}
       className="block w-full"
-      data-testid="ProductCard"
+      data-testid="product-card"
     >
       <figure className="relative w-full rounded overflow-hidden">
         <Image
@@ -26,8 +25,12 @@ const ProductCard = ({ product }: Props) => {
       </figure>
       <div className="p-2">
         <div className="text-2xl font-[500] font-bold">{product.name}</div>
-        <Text.Price variant="ref">{mainVariation.referencePrice}</Text.Price>
-        <Text.Price>{mainVariation.currentPrice}</Text.Price>
+        <div className="flex gap-4 items-end">
+          <span className="price ref-price">
+            {mainVariation.referencePrice}
+          </span>
+          <span className="price text-2xl">{mainVariation.currentPrice}</span>
+        </div>
       </div>
     </Link>
   );

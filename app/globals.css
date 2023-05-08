@@ -24,3 +24,15 @@ body {
 .flex-center {
   @apply flex items-center justify-center;
 }
+
+.heading {
+  @apply text-3xl mb-5 font-[400] leading-[26px] text-left;
+}
+
+.ref-price {
+  @apply line-through;
+}
+
+.price:after {
+  content: ' DH';
+}

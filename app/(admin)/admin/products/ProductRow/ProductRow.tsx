@@ -1,10 +1,5 @@
-import ProductImage from "@/components/ProductImage/ProductImage";
-import Text from "@/components/Text/Text";
-import { TrashIcon } from "@/components/Icons/TrashIcon";
 import RowActions from "@/app/(admin)/admin/products/ProductRow/RowActions";
 import Image from "next/image";
-import { getMainPhoto } from "@/utils/data/product";
-import product from "@/types/Product";
 
 interface Props {
   sku: string;
