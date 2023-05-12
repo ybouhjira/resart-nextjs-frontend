@@ -24,7 +24,7 @@ const ProductCard = ({ product }: Props) => {
         />
       </figure>
       <div className="p-2">
-        <div className="text-2xl font-[500] font-bold">{product.name}</div>
+        <div className="text-2xl font-bold">{product.name}</div>
         <div className="flex gap-4 items-end">
           <span className="price ref-price">
             {mainVariation.referencePrice}
