@@ -14,13 +14,13 @@ const ProductCard = ({ product }: Props) => {
       className="block w-full"
       data-testid="product-card"
     >
-      <figure className="relative w-full rounded overflow-hidden">
+      <figure className="relative rounded overflow-hidden w-[274px] h-[274px]">
         <Image
           src={getMainPhoto(product) as string}
           alt={product.name}
           width={274}
           height={274}
-          className="object-cover w-full"
+          className="object-cover bg-center w-full"
         />
       </figure>
       <div className="p-2">

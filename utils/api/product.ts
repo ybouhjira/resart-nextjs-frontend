@@ -13,3 +13,17 @@ export const createProduct = async (data: any) => {
 
   return response.json();
 };
+
+export const updateProduct = async (data: any) => {
+  const formData = toFormData(data);
+  const response = await fetch(`/api/products/${data.sku}`, {
+    method: "PUT",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Error updating product");
+  }
+
+  return response.json();
+};

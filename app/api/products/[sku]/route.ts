@@ -1,10 +1,35 @@
 import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   DeleteObjectCommand,
   ListObjectsCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
+import { parseBody } from "@/app/api/products/validationSchema";
+
+export async function PUT(request: NextRequest) {
+  try {
+    const prisma = new PrismaClient();
+    const body = await request.formData();
+    const bodyAsObject = Object.fromEntries(body.entries());
+    const validated = parseBody(bodyAsObject, body);
+
+    await prisma.product.update({
+      where: {
+        sku: validated.sku,
+      },
+      data: {
+        name: validated.name,
+        description: validated.description,
+      },
+    });
+
+    prisma.$disconnect();
+  } catch (error) {
+    console.log(error);
+    return new Response(null, { status: 500 });
+  }
+}
 
 export async function DELETE(
   request: Request,
