@@ -11,8 +11,6 @@ const ColorPicker = forwardRef(function ColorPickerComponent(
 ) {
   return (
     <div className="flex flex-wrap">
-      {watch("color")}
-
       {colors.map((color) => (
         <label key={color} className="block">
           <input

@@ -1,6 +1,6 @@
-import { createContext, ReactNode, useContext, useMemo } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { twMerge } from "tailwind-merge";
-import { FieldErrors } from "react-hook-form";
+import { useFormState } from "react-hook-form";
 
 type FormFieldProps<RegisterType extends string> = {
   colSpan?: number;
@@ -10,23 +10,20 @@ type FormFieldProps<RegisterType extends string> = {
 };
 
 type FormFieldBuildProps<RegisterType extends string> = {
-  errors: FieldErrors;
   labels: Record<RegisterType, string>;
   children: ReactNode;
 };
 
 const FormFieldContext = createContext({
-  errors: {} as FieldErrors,
   labels: {} as Record<string, string>,
 });
 
 export default function FormFieldProvider<RegisterType extends string>({
   children,
-  errors,
   labels,
 }: FormFieldBuildProps<RegisterType>) {
   return (
-    <FormFieldContext.Provider value={{ errors, labels }}>
+    <FormFieldContext.Provider value={{ labels }}>
       {children}
     </FormFieldContext.Provider>
   );
@@ -37,7 +34,8 @@ export function FormField<RegisterType extends string>({
   colSpan,
   name,
 }: FormFieldProps<RegisterType>) {
-  const { errors, labels } = useContext(FormFieldContext);
+  const { labels } = useContext(FormFieldContext);
+  const { errors } = useFormState();
 
   const getErrors = (name: RegisterType) =>
     errors[name] && (

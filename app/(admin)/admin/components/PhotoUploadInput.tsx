@@ -2,23 +2,34 @@ import {
   ChangeEvent,
   ComponentProps,
   forwardRef,
+  Fragment,
   LegacyRef,
   useState,
 } from "react";
 import Image from "next/image";
 import { UploadIcon } from "@/components/Icons/UploadIcon";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { getPhotoURL } from "@/utils/data/product";
+
+type Props = ComponentProps<"input"> & {
+  preExistingPhotosUrls?: string[];
+  imageFilesInputProps: ComponentProps<"input">;
+  imageURLsInputProps: ComponentProps<"input">[];
+  removePhoto?: (photoIndex: number) => void;
+  fieldArray?: ReturnType<typeof useFieldArray>;
+};
 
 const PhotoUploadInput = forwardRef(function PhotoUploadInputComponent(
   {
     preExistingPhotosUrls,
-    ...props
-  }: ComponentProps<"input"> & {
-    preExistingPhotosUrls?: string[];
-  },
+    imageURLsInputProps,
+    imageFilesInputProps,
+    fieldArray,
+  }: Props,
   ref: LegacyRef<HTMLInputElement>
 ) {
   const [files, setFiles] = useState<File[]>([]);
-
+  const { watch } = useFormContext();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     setFiles(Array.from(e.target.files));
@@ -30,6 +41,8 @@ const PhotoUploadInput = forwardRef(function PhotoUploadInputComponent(
     setFiles(newFiles);
   };
 
+  const [photoURLs] = (watch("photoURLs") || [[]]) as string[][];
+
   return (
     <div className="flex items-center justify-center w-full h-full">
       <label
@@ -37,22 +50,37 @@ const PhotoUploadInput = forwardRef(function PhotoUploadInputComponent(
         className="h-full flex flex-col items-center justify-center w-full border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
       >
         <div className="h-full flex flex-col items-center justify-center p-0">
-          {files.length > 0 || preExistingPhotosUrls ? (
+          {files.length > 0 || photoURLs.length > 0 ? (
             <div className="flex flex-wrap overflow-y-scroll h-full">
-              {[...(preExistingPhotosUrls ?? []), ...files].map(
-                (fileOrURL: File | string, index) => {
-                  return (
-                    <RemovablePhotoItem
-                      key={isFile(fileOrURL) ? fileOrURL.name : fileOrURL}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        removePhoto(index);
-                      }}
-                      fileOrString={fileOrURL}
-                    />
-                  );
-                }
-              )}
+              {photoURLs?.map((url, index) => (
+                <Fragment key={index}>
+                  <RemovablePhotoItem
+                    key={url}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      fieldArray?.remove(index);
+                    }}
+                    fileOrString={getPhotoURL(url)}
+                  />
+                  <input
+                    className="hidden"
+                    {...imageURLsInputProps[index]}
+                    type="text"
+                  />
+                </Fragment>
+              ))}
+              {[...files].map((fileOrURL: File | string, index) => {
+                return (
+                  <RemovablePhotoItem
+                    key={isFile(fileOrURL) ? fileOrURL.name : fileOrURL}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      removePhoto(index);
+                    }}
+                    fileOrString={fileOrURL}
+                  />
+                );
+              })}
             </div>
           ) : (
             <>
@@ -67,16 +95,17 @@ const PhotoUploadInput = forwardRef(function PhotoUploadInputComponent(
             </>
           )}
         </div>
+
         <input
           id="dropzone-file"
           type="file"
           className="hidden"
           accept="image/*"
           multiple
-          {...props}
+          {...imageFilesInputProps}
           onChange={(e) => {
             onChange(e);
-            props.onChange?.(e);
+            imageFilesInputProps.onChange?.(e);
           }}
           ref={ref}
         />

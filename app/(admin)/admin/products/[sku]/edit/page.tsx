@@ -1,7 +1,5 @@
 import CreateProductForm from "@/app/(admin)/admin/products/create/CreateProductForm";
 import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
-import { useMutation } from "react-query";
-import { updateProduct } from "@/utils/api/product";
 
 interface Props {
   params: {
@@ -12,12 +10,6 @@ interface Props {
 export default async function EditProductPage({ params: { sku } }: Props) {
   const product = await useGetProductBySku(sku);
   return (
-    <div>
-      <br />
-      <CreateProductForm
-        pageTitle={`Change product ${sku}`}
-        product={product}
-      />
-    </div>
+    <CreateProductForm pageTitle={`Change product ${sku}`} product={product} />
   );
 }

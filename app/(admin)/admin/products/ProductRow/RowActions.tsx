@@ -33,7 +33,7 @@ export default function RowActions({ sku }: Props) {
   return (
     <div className="flex items-center space-x-2 p-2">
       <Link
-        href={`/admin/products/edit/${sku}`}
+        href={`/admin/products/${sku}/edit`}
         type="button"
         className="bg-dark py-2 px-3 flex items-center text-sm font-medium text-center text-white rounded-lg focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
       >
