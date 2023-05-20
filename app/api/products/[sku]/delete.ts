@@ -40,13 +40,6 @@ export async function DELETE(
       where: {
         sku: query.params.sku,
       },
-      include: {
-        variations: {
-          include: {
-            images: true,
-          },
-        },
-      },
     });
 
     return new Response(null, { status: 204 });

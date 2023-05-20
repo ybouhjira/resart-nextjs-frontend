@@ -1,5 +1,5 @@
 import ProductForm from "@/app/(admin)/admin/products/ProductForm";
-import { useGetProductBySku } from "@/data/product/useGetProductBySku";
+import getProductFromDBBySKU from "@/lib/entities/Product/db/getProductFromDB";
 
 interface Props {
   params: {
@@ -8,6 +8,6 @@ interface Props {
 }
 
 export default async function EditProductPage({ params: { sku } }: Props) {
-  const product = await useGetProductBySku(sku);
+  const product = await getProductFromDBBySKU(sku);
   return <ProductForm pageTitle={`Change product ${sku}`} product={product} />;
 }
