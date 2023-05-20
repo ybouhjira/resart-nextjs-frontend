@@ -1,15 +1,9 @@
-import { useGetProducts } from "@/app/(main)/products/useGetProducts";
-import {
-  getCurrentPrice,
-  getMainPhoto,
-  getReferencePrice,
-  getStock,
-} from "@/utils/data/product";
 import { CrudActions } from "@/app/(admin)/admin/products/CrudActions";
 import ProductRow from "@/app/(admin)/admin/products/ProductRow/ProductRow";
+import { getAllProductsInDB } from "@/lib/entities/Product/db/getAllProductsInDB";
 
 const AdminProductsPage = async () => {
-  const products = await useGetProducts();
+  const products = await getAllProductsInDB();
 
   return (
     <>
@@ -54,15 +48,7 @@ const AdminProductsPage = async () => {
                     </tr>
                   )}
                   {products.map((product) => (
-                    <ProductRow
-                      sku={product.sku}
-                      key={product.sku}
-                      photoURL={getMainPhoto(product)}
-                      name={product.name}
-                      stock={getStock(product)}
-                      currentPrice={getCurrentPrice(product)}
-                      referencePrice={getReferencePrice(product)}
-                    />
+                    <ProductRow product={product} key={product.sku} />
                   ))}
                 </tbody>
               </table>

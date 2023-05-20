@@ -1,8 +1,9 @@
 import ProductCard from "@/components/ProductCard";
-import { useGetProducts } from "@/app/(main)/products/useGetProducts";
+import { getAllProductsInDB } from "@/lib/entities/Product/db/getAllProductsInDB";
+import { Product } from "@prisma/client";
 
 export default async function Home() {
-  const products = await useGetProducts();
+  const products: Product[] = await getAllProductsInDB();
 
   return (
     <main className="max-w-screen-max mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-sm md:gap-md">

@@ -1,21 +1,24 @@
-import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
 import { notFound } from "next/navigation";
-import { WhatsappButton } from "@/components/whatsappButton";
 import Image from "next/image";
-import { getMainPhoto } from "@/utils/data/product";
+import {
+  getCurrentPrice,
+  getMainPhoto,
+  getReferencePrice,
+} from "@/lib/entities/Product/schema";
+import getProductFromDBBySKU from "@/lib/entities/Product/db/getProductFromDB";
+import * as process from "process";
+import cx from "classnames";
+import Button from "@/app/shared/Button/Button";
 
 interface Props {
   params: { sku: string };
 }
 
 const ProductDetailsPage = async ({ params: { sku } }: Props) => {
-  const product = await useGetProductBySku(sku);
+  const product = await getProductFromDBBySKU(sku);
 
   if (!product) notFound();
 
-  const mainVariation = product.variations[0];
-
-  const phoneNumber = "2121234343";
   return (
     <main className="max-w-screen-max m-auto flex">
       <div className="flex flex-col md:flex-row gap-5">
@@ -43,18 +46,27 @@ const ProductDetailsPage = async ({ params: { sku } }: Props) => {
                 className="text-3xl text-dark font-bold"
                 data-testid="product-current-price"
               >
-                {mainVariation.currentPrice} DH
+                {getCurrentPrice(product)} DH
               </span>
 
               <span className="text-2xl" data-testid="product-reference-price">
-                {mainVariation.referencePrice} DH
+                {getReferencePrice(product)} DH
               </span>
             </div>
             <div className="self-stretch">
-              <WhatsappButton
+              <Button
+                className={cx(
+                  "block bg-transparent text-whatsapp border-whatsapp border-2"
+                )}
+                href={`https://wa.me/${
+                  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER as string
+                }?text=Hello, I want to order product: ${product.sku}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 data-testid="whatsapp-button"
-                phoneNumber={process.env.NEXT_PUBLIC_WHATSAPP_NUMBER as string}
-              />
+              >
+                Order On Whatsapp
+              </Button>
             </div>
           </div>
         </section>

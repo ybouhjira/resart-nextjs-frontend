@@ -1,13 +1,17 @@
 import Link from "next/link";
 import Image from "next/image";
-import { getMainPhoto } from "@/utils/data/product";
+import {
+  getCurrentPrice,
+  getMainPhoto,
+  getReferencePrice,
+} from "@/lib/entities/Product/schema";
+import { GetProductPayload } from "@/lib/entities/Product/types";
 
 interface Props {
-  product: any;
+  product: GetProductPayload;
 }
 
 const ProductCard = ({ product }: Props) => {
-  const mainVariation = product.variations[0];
   return (
     <Link
       href={`products/${product.sku}`}
@@ -16,7 +20,7 @@ const ProductCard = ({ product }: Props) => {
     >
       <figure className="relative rounded overflow-hidden w-[274px] h-[274px]">
         <Image
-          src={getMainPhoto(product) as string}
+          src={getMainPhoto(product)}
           alt={product.name}
           width={274}
           height={274}
@@ -26,10 +30,8 @@ const ProductCard = ({ product }: Props) => {
       <div className="p-2">
         <div className="text-2xl font-bold">{product.name}</div>
         <div className="flex gap-4 items-end">
-          <span className="price ref-price">
-            {mainVariation.referencePrice}
-          </span>
-          <span className="price text-2xl">{mainVariation.currentPrice}</span>
+          <span className="price ref-price">{getReferencePrice(product)}</span>
+          <span className="price text-2xl">{getCurrentPrice(product)}</span>
         </div>
       </div>
     </Link>

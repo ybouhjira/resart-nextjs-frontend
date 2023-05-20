@@ -23,13 +23,11 @@ export default function Carousel({ children }: CarouselProps) {
       const swiperWrapper = swiper.slides[0].parentElement!;
       const windowWidth = window.innerWidth;
 
-      console.log({ slidesWidth, windowWidth });
       if (slidesWidth < windowWidth) {
         swiper.disable();
         swiperWrapper.classList.add("disabled-swiper");
       } else {
         swiperWrapper.classList.remove("disabled-swiper");
-        console.log(swiper.params.slidesPerView);
         swiper.enable();
       }
     }

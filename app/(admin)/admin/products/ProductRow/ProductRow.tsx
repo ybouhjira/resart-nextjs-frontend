@@ -1,26 +1,13 @@
 import RowActions from "@/app/(admin)/admin/products/ProductRow/RowActions";
 import Image from "next/image";
+import { ProductWithPhotoURLs } from "@/lib/entities/Product/types";
 
 interface Props {
-  sku: string;
-  photoURL: string;
-  name: string;
-  currentPrice: number;
-  referencePrice: number;
-  stock: number;
-  onDeleteClick?: () => void;
-  onEditClick?: () => void;
+  product: ProductWithPhotoURLs;
 }
 
 export default function ProductRow({
-  sku,
-  photoURL,
-  name,
-  currentPrice,
-  referencePrice,
-  stock,
-  onDeleteClick,
-  onEditClick,
+  product: { sku, photoURLs, name, currentPrice, referencePrice, stock },
 }: Props) {
   return (
     <tr className="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -34,7 +21,7 @@ export default function ProductRow({
             width={64}
             height={64}
             className="bg-cover"
-            src={photoURL}
+            src={photoURLs[0]}
             alt="Necklace image"
           />
         </div>

@@ -2,7 +2,7 @@
 
 import { LegacyRef } from "react";
 import { twMerge } from "tailwind-merge";
-import { useOnClickOutside } from "@/hooks/useOnClickOutside";
+import { useOnClickOutside } from "@/lib/ui/hooks/useOnClickOutside";
 import SignOutButton from "./SignOutButton";
 import MenuItem from "./MenuItem";
 import StoreIcon from "@/components/Icons/StoreIcon";

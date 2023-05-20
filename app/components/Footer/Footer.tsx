@@ -2,7 +2,7 @@ import Link from "next/link";
 import FacebookIcon from "@/components/Icons/FacebookIcon";
 import WhatsappIcon from "@/components/Icons/WhatsappIcon";
 import InstagramIcon from "@/components/Icons/InstagramIcon";
-import useColors from "@/utils/useColors";
+import useColors from "@/lib/ui/hooks/useColors";
 
 export function Footer() {
   const colors = useColors();

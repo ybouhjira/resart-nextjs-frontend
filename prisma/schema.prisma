@@ -16,30 +16,8 @@ model Product {
   updateAt  DateTime @updatedAt
   name      String   @unique
 
-  variations  Variation[]
-  description String      
-}
-
-model Variation {
-
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-
-  id             String         @id @default(uuid())
-  product        Product        @relation(fields: [productSku], references: [sku], onDelete: Cascade, onUpdate: Cascade)
-  productSku     String
-  color          String
-  images         ProductPhoto[]
+  description    String
   referencePrice Float
   currentPrice   Float
   stock          Int
-}
-
-model ProductPhoto {
-  createdAt DateTime @default(now())
-  updateAt  DateTime @updatedAt
-  id          Int        @id @default(autoincrement())
-  path        String
-  Variation   Variation? @relation(fields: [variationId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  variationId String?
 }

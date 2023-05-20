@@ -1,5 +1,5 @@
-import CreateProductForm from "./CreateProductForm";
+import ProductForm from "../ProductForm";
 
 export default function CreateProductPage() {
-  return <CreateProductForm pageTitle="Create a new product" />;
+  return <ProductForm pageTitle="Create a new product" />;
 }

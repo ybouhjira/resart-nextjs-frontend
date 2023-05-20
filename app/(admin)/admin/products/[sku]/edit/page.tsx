@@ -1,5 +1,5 @@
-import CreateProductForm from "@/app/(admin)/admin/products/create/CreateProductForm";
-import { useGetProductBySku } from "@/app/(main)/products/[sku]/data/useGetProductBySku";
+import ProductForm from "@/app/(admin)/admin/products/ProductForm";
+import { useGetProductBySku } from "@/data/product/useGetProductBySku";
 
 interface Props {
   params: {
@@ -9,7 +9,5 @@ interface Props {
 
 export default async function EditProductPage({ params: { sku } }: Props) {
   const product = await useGetProductBySku(sku);
-  return (
-    <CreateProductForm pageTitle={`Change product ${sku}`} product={product} />
-  );
+  return <ProductForm pageTitle={`Change product ${sku}`} product={product} />;
 }

@@ -12,7 +12,7 @@ import links from "./links";
 import Link from "next/link";
 import cx from "classnames";
 import BurgerMenuIcon from "@/components/Icons/BurgerMenuIcon";
-import useColors from "@/utils/useColors";
+import useColors from "@/lib/ui/hooks/useColors";
 
 const useClickOutside = (ref: RefObject<HTMLElement>, callback: () => void) => {
   const handleClickOutside = useCallback(
@@ -48,12 +48,7 @@ export default function BurgerMenu() {
   return (
     <>
       <button
-        onMouseDown={(e) => {
-          setVisible((v) => {
-            console.log(v);
-            return !v;
-          });
-        }}
+        onMouseDown={() => setVisible((v) => !v)}
         className="w-10 h-10 z-20 relative block"
       >
         <BurgerMenuIcon

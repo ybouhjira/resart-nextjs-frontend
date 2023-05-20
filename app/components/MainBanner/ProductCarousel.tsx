@@ -7,6 +7,7 @@ interface Props {
 }
 
 export default function ProductCarousel({ urls }: Props) {
+  console.log({ urls });
   return (
     <div className={cx(styles.perspective, "flex m-auto justify-center")}>
       {urls.map((item, index) => (
